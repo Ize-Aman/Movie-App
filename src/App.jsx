@@ -70,7 +70,7 @@ const App = (props) => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
         <section className="all-movies">
-          <h2 className="mt-10">Popular Movies</h2>
+          <h2 className="mt-10">{debouncedSearchTerm ? 'Search Results' : 'Popular Movies'}</h2>
 
           {isLoading ? (
             <ThreeDot variant="pulsate" color="#4B0082" size="medium" text="" textColor="" />

@@ -3,6 +3,7 @@ import Search from "./components/Search";
 import { ThreeDot } from "react-loading-indicators";
 import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
+import MovieModal from "./components/MovieModal";
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY
@@ -21,6 +22,7 @@ const App = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
@@ -58,7 +60,6 @@ const App = (props) => {
   }
 
 
-
   return (
     <main>
       <div className="pattern" />
@@ -79,12 +80,15 @@ const App = (props) => {
           ) : (
             <ul>
               {movieList.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard key={movie.id} movie={movie} onClick={() => setSelectedMovie(movie)} />
               ))}
             </ul>
           )}
         </section>
       </div>
+      {selectedMovie && (
+        <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
+      )}
     </main>
   )
 };

@@ -2,13 +2,14 @@ import React from "react"
 import { motion, scale } from "motion/react"
 
 const MovieCard = ({ movie:
-    { title, vote_average, poster_path, release_date, original_language }
+    { title, vote_average, poster_path, release_date, original_language }, onClick
 }) => {
     return (
         <motion.div className="movie-card"
             whileHover={{ scale: 1.03, boxShadow: "0 10px 20px rgba(0,0,0,0.3" }}
             whileTap={{ scale: 0.99 }}
             transition={{ duration: 0.19 }}
+            onClick={onClick}
         >
             <img src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : '/no-movie.png'} alt={title} srcset="" />
 

@@ -23,6 +23,7 @@ const App = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
@@ -80,14 +81,14 @@ const App = (props) => {
           ) : (
             <ul>
               {movieList.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} onClick={() => setSelectedMovie(movie)} />
+                <MovieCard key={movie.id} movie={movie} onClick={() => { setSelectedMovie(movie); setIsModalOpen(true) }} isModalOpen={isModalOpen} />
               ))}
             </ul>
           )}
         </section>
       </div>
       {selectedMovie && (
-        <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
+        <MovieModal movie={selectedMovie} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       )}
     </main>
   )

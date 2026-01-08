@@ -144,10 +144,10 @@
   }
 
   .movie-modal {
-    @apply fixed inset-0 bg-black/70 flex items-center justify-center z-50;
+    @apply fixed inset-0 bg-black/70;
 
     & .inner {
-      @apply bg-[#0F0D23] rounded-xl p-6 max-w-300 w-full max-h-150 h-full
+      @apply fixed inset-0 flex items-center justify-center p-4;
     }
 
     & img {

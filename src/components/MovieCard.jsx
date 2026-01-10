@@ -6,7 +6,7 @@ const MovieCard = ({ movie:
 }) => {
     return (
         <motion.div className="movie-card"
-            whileHover={{ scale: 1.03, boxShadow: "0 5px 20px rgba(255,255,255,0.2)" }}
+            whileHover={{ scale: 1.03, boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}
             whileTap={{ scale: 0.99 }}
             transition={{ duration: 0.19 }}
             onClick={onClick}

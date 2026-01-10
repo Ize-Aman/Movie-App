@@ -144,24 +144,22 @@
   }
 
   .movie-modal {
-    @apply fixed inset-0 bg-black/70;
+    @apply relative z-50;
 
-    & .inner {
-      @apply fixed inset-0 flex items-center justify-center p-4;
-    }
-
-    & img {
-      @apply size-50 float-left mr-10;
-    }
-
-    & button {
-      @apply mt-6 px-4 py-2 bg-indigo-600 rounded cursor-pointer;
+    & .modal-panel {
+      @apply bg-[#0F0D23] rounded-xl p-6 max-w-md w-full mt-0 flex flex-col;
+      -webkit-box-shadow: 0px 0px 100px 0px rgba(171, 139, 255, 0.3);
+      box-shadow: 0px 0px 100px 0px rgba(171, 139, 255, 0.3);
     }
   }
 }
 
 @utility text-gradient {
   @apply bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent;
+}
+
+@utility btn-gradient {
+  @apply mt-4 px-4 py-2 text-black rounded cursor-pointer bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] self-end;
 }
 
 @utility fancy-text {

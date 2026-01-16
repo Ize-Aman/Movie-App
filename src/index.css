@@ -3,8 +3,6 @@
 
 @import "tailwindcss";
 
-
-
 @theme {
   --color-primary: #030014;
 
@@ -30,7 +28,7 @@
   }
 
   h1 {
-    @apply mx-auto max-w-3xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[55px] sm:leading-[76px];
+    @apply mx-auto max-w-3xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[55px] sm:leading-19;
   }
 
   h2 {
@@ -46,7 +44,7 @@
   }
 
   header img {
-    @apply w-[400px] max-w-lg h-auto object-contain mx-auto drop-shadow-md;
+    @apply w-100 max-w-lg h-auto object-contain mx-auto drop-shadow-md;
   }
 }
 
@@ -67,15 +65,15 @@
     }
 
     & ul li {
-      @apply min-w-[230px] flex flex-row items-center;
+      @apply min-w-57.5 flex flex-row items-center;
     }
 
     & ul li p {
-      @apply fancy-text mt-[22px] text-nowrap;
+      @apply fancy-text mt-5.5 text-nowrap;
     }
 
     & ul li img {
-      @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
+      @apply w-31.75 h-40.75 rounded-lg object-cover -ml-3.5;
     }
   }
 

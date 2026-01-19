@@ -37,6 +37,9 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 <video src="#" controls></video>
                             </div>
 
+                            <button onClick={() => setIsModalOpen(false)} className="btn-gradient">Back to Homepage</button>
+
+
                             <div className="movie-meta">
                                 <div className="meta-row">
                                     <span className="meta-title">Overview</span>
@@ -59,7 +62,6 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 </div>
                             </div>
 
-                            <button onClick={() => setIsModalOpen(false)} className="btn-gradient">Back to Homepage</button>
                         </DialogPanel>
                     </div>
                 </Dialog>

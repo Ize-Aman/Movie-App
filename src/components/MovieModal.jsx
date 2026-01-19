@@ -28,10 +28,37 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                             exit={{ y: 20, opacity: 0 }}
                             transition={{ duration: 0.18 }}
                         >
-                            <DialogTitle className="text-2xl font-bold mb-4">{movie?.title}</DialogTitle>
+                            <DialogTitle className="text-2xl font-bold mb-4">{movie?.title}
+                            </DialogTitle>
+                            <p className="meta-title text-[12px] pb-5">{movie.release_date}</p>
 
-                            <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : './no-movie.png'} alt="Movie" />
-                            <p className="mt-4 text-gray-300">overview: {movie.overview}</p>
+                            <div className="modal-contents">
+                                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : './no-movie.png'} alt="Movie" />
+                                <video src="#" controls></video>
+                            </div>
+
+                            <div className="movie-meta">
+                                <div className="meta-row">
+                                    <span className="meta-title">Overview</span>
+                                    <span className="meta-value">{movie.overview}</span>
+                                </div>
+
+                                <div className="meta-row">
+                                    //TODO edit the release date based on the design (mahammed this is for you)
+                                    <span className="meta-title">Release Date</span>
+                                    <span className="meta-value">{movie.release_date}</span>
+                                </div>
+
+                                <div className="meta-row">
+                                    <span className="meta-title">Status</span>
+                                    <span className="meta-value">Released</span>
+                                </div>
+
+                                <div className="meta-row">
+                                    <span className="meta-title">Language</span>
+                                    <span className="meta-value">English • Korean • Hindi</span>
+                                </div>
+                            </div>
 
                             <button onClick={() => setIsModalOpen(false)} className="btn-gradient">Back to Homepage</button>
                         </DialogPanel>

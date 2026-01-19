@@ -29,9 +29,12 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                             transition={{ duration: 0.18 }}
                         >
                             <DialogTitle className="text-2xl font-bold mb-4">{movie?.title}</DialogTitle>
-
-                            <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : './no-movie.png'} alt="Movie" />
-                            <p className="mt-4 text-gray-300">overview: {movie.overview}</p>
+                            <div className="modal-contents">
+                                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : './no-movie.png'} alt="Movie" />
+                                <video src="#" controls></video>
+                            </div>
+                            <p className="mt-4 text-gray-300">Overview: {movie.overview}</p>
+                            <p className="mt-4 text-gray-300">Release Date</p>
 
                             <button onClick={() => setIsModalOpen(false)} className="btn-gradient">Back to Homepage</button>
                         </DialogPanel>

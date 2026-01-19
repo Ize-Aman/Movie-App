@@ -44,7 +44,6 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 </div>
 
                                 <div className="meta-row">
-                                    //TODO edit the release date based on the design (mahammed this is for you)
                                     <span className="meta-title">Release Date</span>
                                     <span className="meta-value">{movie.release_date}</span>
                                 </div>

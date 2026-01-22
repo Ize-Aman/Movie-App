@@ -42,23 +42,23 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
 
                             <div className="movie-meta">
                                 <div className="meta-row">
-                                    <span className="meta-title">Overview</span>
-                                    <span className="meta-value">{movie.overview}</span>
+                                    <span className="meta-title">Overview </span>
+                                    <span className="meta-value"> {movie.overview}</span>
                                 </div>
 
                                 <div className="meta-row">
-                                    <span className="meta-title">Release Date</span>
-                                    <span className="meta-value">{movie.release_date}</span>
+                                    <span className="meta-title">Release Date </span>
+                                    <span className="meta-value"> {movie.release_date}</span>
                                 </div>
 
                                 <div className="meta-row">
-                                    <span className="meta-title">Status</span>
-                                    <span className="meta-value">Released</span>
+                                    <span className="meta-title">Status </span>
+                                    <span className="meta-value"> Released</span>
                                 </div>
 
                                 <div className="meta-row">
-                                    <span className="meta-title">Language</span>
-                                    <span className="meta-value">English • Korean • Hindi</span>
+                                    <span className="meta-title">Language </span>
+                                    <span className="meta-value"> English • Korean • Hindi</span>
                                 </div>
                             </div>
 

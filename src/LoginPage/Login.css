@@ -1,24 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;@200;300;400;500;600;700;800&display=swap");
 @import "../index.css";
-.login-wrapper {
-  position: relative;
-  width: 100%;
-  height: 600px;
+
+@layer base {
+  body {
+    font-family: "Poppins", serif;
+    font-optical-sizing: auto;
+    background: #030014;
+  }
+
+  h1 {
+    @apply mx-auto max-w-3xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[55px] sm:leading-19;
+  }
+
+  h2 {
+    @apply text-2xl font-bold text-white sm:text-3xl;
+  }
+
+  h3 {
+    @apply text-[12px] font-light text-center;
+  }
+
+  form {
+    @apply mt-5 flex flex-col gap-5 focus:outline-none;
+  }
+
+  input {
+    @apply p-2 font-medium text-[12px] focus:outline-none w-72 h-11 rounded-md bg-[#1a1a2e7d];
+  }
+
+  button {
+    @apply bg-linear-to-r from-[#4f1794c6] to-[#3e6fa1dd] rounded-[13px] h-10 cursor-pointer;
+  }
 }
 
-.rays {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
+@layer components {
+  .login-wrapper {
+    @apply relative w-screen h-150;
+    /* position: relative;
+    width: 100%;
+    height: 600px; */
+  }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  padding: 1rem;
+  .rays {
+    @apply absolute inset-0 z-0 pointer-events-none;
+    /* position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none; */
+  }
+
+  .overlay {
+    @apply absolute inset-0 z-10 items-center justify-center p-4 text-white flex flex-col;
+    /* position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 1rem; */
+  }
 }

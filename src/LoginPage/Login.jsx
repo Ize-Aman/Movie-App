@@ -18,12 +18,23 @@ const Login = (props) => {
                     noiseAmount={0}
                     distortion={0}
                     pulsating={false}
-                    fadeDistance={1}
+                    fadeDistance={0.8}
                     saturation={1}
                 />
 
                 <div className="overlay">
-                    <h1>Sup ma friend</h1>
+                    <h1>SIGN IN</h1>
+                    <h3>It’s nice to have you here! Login now to access <span className="second-line block">your account.</span></h3>
+
+                    <div className="email-auth">
+                        <form action="">
+                            <input type="email" placeholder="Email" />
+                            <input type="password" placeholder="Password" name="" id="" />
+                            <button type="button">Sign up</button>
+                            <hr />
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from "react"
 import LightRays from "@/components/LightRays";
 import './Login.css'
+import { motion } from "motion/react";
 
 const Login = (props) => {
     return (
@@ -30,10 +31,28 @@ const Login = (props) => {
                         <form action="">
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" name="" id="" />
-                            <button type="button">Sign up</button>
+                            <motion.button type="button"
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                Sign up
+                            </motion.button>
                             <hr />
                         </form>
+                    </div>
 
+                    <div className="other-auth">
+                        <h3 className="self-start font-extralight">or continue with</h3>
+                        <div className="auths">
+                            <motion.button type="button"
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                <img src="./google.svg" />
+                                Google
+                            </motion.button>
+                            <motion.button type="button"
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                <img src="./facebook.svg" alt="" srcset="" />
+                                Facebook
+                            </motion.button>
+                        </div>
                     </div>
                 </div>
             </div>

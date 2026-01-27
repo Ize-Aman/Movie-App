@@ -4,8 +4,10 @@ import { ThreeDot } from "react-loading-indicators";
 import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
 import MovieModal from "./components/MovieModal";
-import { updateSearchCount, getTrendingMovies } from "./firebase";
+import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
 import { li, section } from "motion/react-client";
+import { useAuth } from "./contexts/authContext";
+import { Navigate } from "react-router-dom";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -26,6 +28,21 @@ const App = (props) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { currentUser } = useAuth();
+  var displayName = null
+
+  if (!currentUser) {
+    return <Navigate to={'/'} replace={true} />;
+  } else {
+    displayName = currentUser.displayName ? currentUser.displayName : currentUser.email;
+    if (currentUser.displayName) {
+      displayName = displayName.substring(0, displayName.indexOf(' '));
+    }
+    else {
+      displayName = displayName.substring(0, displayName.indexOf('@'))
+    }
+  }
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
@@ -85,6 +102,8 @@ const App = (props) => {
       <div className="pattern" />
       <div className="wrapper">
         <header>
+          {/*TODO this is how you can access display name*/}
+          <h2>{displayName}</h2>
           <img src="./logo.png" alt="" srcset="" className="w-22 mb-0" />
           <img src="./hero.png" alt="hero banner" />
           <h1>

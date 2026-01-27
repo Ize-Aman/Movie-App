@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import {
   getFirestore,
   collection,
@@ -76,3 +77,11 @@ export const getTrendingMovies = async () => {
     console.log(error);
   }
 };
+
+// --------------------------------------------------
+// Auth functionality
+// --------------------------------------------------
+
+const auth = getAuth(app);
+
+export { app, auth };

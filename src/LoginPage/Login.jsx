@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 
 const Login = (props) => {
     return (
-        <div>
+        <div className="login-page">
             <div className="login-wrapper" style={{ width: '100%', height: '600px', position: 'relative' }}>
                 <LightRays
                     className="rays"
@@ -33,8 +33,9 @@ const Login = (props) => {
                             <input type="password" placeholder="Password" name="" id="" />
                             <motion.button type="button"
                                 whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
-                                Sign up
+                                Login
                             </motion.button>
+                            <h3 className="self-start font-semibold text-[11px]">Don't have an account? <a href="#" className="text-[#9163E2]">Register.</a></h3>
                             <hr />
                         </form>
                     </div>

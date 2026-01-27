@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;@200;300;400;500;600;700;800&display=swap");
 @import "../index.css";
 
-.login-page {
+.register-page {
   body {
     font-family: "Poppins", serif;
     font-optical-sizing: auto;
@@ -21,7 +21,7 @@
   }
 
   form {
-    @apply mt-5 flex flex-col gap-5 focus:outline-none;
+    @apply mt-5 flex flex-col gap-3 focus:outline-none;
   }
 
   input {
@@ -44,26 +44,5 @@
 
   .overlay {
     @apply absolute inset-0 z-10 items-center justify-center p-4 text-white flex flex-col;
-  }
-
-  .email-auth {
-    & hr {
-      @apply border-solid border border-b-0 text-[#727272] mb-4;
-    }
-  }
-
-  .other-auth {
-    @apply flex flex-col gap-1;
-
-    & .auths {
-      @apply flex flex-row gap-3 mt-1;
-    }
-
-    & button {
-      @apply font-semibold px-[35.7px] h-10 text-[11px] bg-none bg-[#4f1794c6] rounded-[10px];
-    }
-    & img {
-      @apply inline mr-3 size-4;
-    }
   }
 }

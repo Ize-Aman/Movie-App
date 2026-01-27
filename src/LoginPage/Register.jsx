@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import './Register.css';
+import { ThreeDot } from "react-loading-indicators";
 import { motion } from "motion/react";
 import LightRays from "@/components/LightRays";
 import { Link, useNavigate, Navigate } from "react-router-dom";
@@ -33,7 +34,6 @@ const Register = (props) => {
 
     return (
         <div className="register-page">
-            {/*<Navigate to={'/home'} replace={true} />*/}
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
             <div className="login-wrapper" style={{ width: '100%', height: '600px', position: 'relative' }}>
                 <LightRays
@@ -59,8 +59,8 @@ const Register = (props) => {
                     <div className="email-auth">
                         <form onSubmit={onSubmit}>
                             <input type="text" placeholder="Display name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-                            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="email" placeholder="Email *" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="password" placeholder="Password *" required value={password} onChange={(e) => setPassword(e.target.value)} />
                             <motion.button type="submit"
                                 whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
                                 {isRegistering ? <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" /> : 'Sign up'}

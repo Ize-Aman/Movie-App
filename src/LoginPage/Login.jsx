@@ -1,13 +1,46 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import LightRays from "@/components/LightRays";
 import './Login.css'
 import { motion } from "motion/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, replace, useNavigate } from "react-router-dom";
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "@/firebase/auth";
+import { useAuth } from "@/contexts/authContext";
 
 const Login = (props) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isSigningIn, setIsSigningIn] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const { userLoggedIn } = useAuth();
     const navigate = useNavigate();
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!isSigningIn) {
+            setIsSigningIn(true);
+            await doSignInWithEmailAndPassword(email, password);
+        }
+    }
+
+    const onGoogleSignIn = async (e) => {
+        e.preventDefault();
+        if (!isSigningIn) {
+            setIsSigningIn(true);
+            try {
+                await doSignInWithGoogle();
+                navigate('/home');
+            } catch (err) {
+                setIsSigningIn(false);
+                setErrorMessage(err.message || 'Sign in failed');
+            }
+        }
+    }
+
     return (
         <div className="login-page">
+            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
             <div className="login-wrapper" style={{ width: '100%', height: '600px', position: 'relative' }}>
                 <LightRays
                     className="rays"
@@ -45,8 +78,8 @@ const Login = (props) => {
                     <div className="other-auth">
                         <h3 className="self-start font-extralight">or continue with</h3>
                         <div className="auths">
-                            <motion.button type="button"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                            <motion.button type="submit"
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={onGoogleSignIn}>
                                 <img src="./google.svg" />
                                 Google
                             </motion.button>

@@ -4,7 +4,7 @@ import { ThreeDot } from "react-loading-indicators";
 import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
 import MovieModal from "./components/MovieModal";
-import { updateSearchCount, getTrendingMovies } from "./FirebaseConfig";
+import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
 import { li, section } from "motion/react-client";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";

@@ -61,19 +61,21 @@
     @apply mt-20;
 
     & ul {
-      @apply flex flex-row overflow-y-auto gap-5 -mt-10 w-full hide-scrollbar;
+      @apply flex flex-row overflow-y-auto gap-15 -mt-10 w-full hide-scrollbar;
     }
 
     & ul li {
-      @apply min-w-57.5 flex flex-row items-center;
+      @apply min-w-52 flex flex-row items-center pt-10;
     }
 
     & ul li p {
       @apply fancy-text mt-5.5 text-nowrap;
+      transform: scale(0.8);
+      transform-origin: left;
     }
 
     & ul li img {
-      @apply w-31.75 h-40.75 rounded-lg object-cover -ml-3.5;
+      @apply w-48 h-64 rounded-lg object-cover -ml-6 z-1;
     }
   }
 

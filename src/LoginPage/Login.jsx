@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import LightRays from "@/components/LightRays";
 import './Login.css'
+import { ThreeDot } from "react-loading-indicators";
 import { motion } from "motion/react";
 import { Link, Navigate, replace, useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "@/firebase/auth";
@@ -63,13 +64,24 @@ const Login = (props) => {
                     <h3>It’s nice to have you here! Login now to access <span className="second-line block">your account.</span></h3>
 
                     <div className="email-auth">
-                        <form action="">
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" name="" id="" />
-                            <motion.button type="button"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={() => navigate("/home")}>
-                                Login
+                        <form onSubmit={onSubmit}>
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <motion.button type="submit"
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.25)" }}>
+                                {isSigningIn ? <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" /> : 'Login'}
                             </motion.button>
+                            {errorMessage && <p className="error">{errorMessage}</p>}
                             <h3 className="self-start font-semibold text-[11px]">Don't have an account? <Link to={"/register"} className="text-[#9163E2]">Register.</Link></h3>
                             <hr />
                         </form>
@@ -79,12 +91,12 @@ const Login = (props) => {
                         <h3 className="self-start font-extralight">or continue with</h3>
                         <div className="auths">
                             <motion.button type="submit"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={onGoogleSignIn}>
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.25)" }} onClick={onGoogleSignIn}>
                                 <img src="./google.svg" />
                                 Google
                             </motion.button>
                             <motion.button type="button"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.25)" }}>
                                 <img src="./facebook.svg" alt="" srcset="" />
                                 Facebook
                             </motion.button>

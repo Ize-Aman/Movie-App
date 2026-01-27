@@ -15,7 +15,12 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                         as={motion.div}
                         className="fixed inset-0 bg-primary/94"
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        animate={{
+                            opacity: 1,
+                            transition: {
+                                opacity: { ease: "linear" }
+                            }
+                        }}
                         exit={{ opacity: 0 }}
                     />
 
@@ -23,10 +28,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                         <DialogPanel
                             as={motion.div}
                             className="modal-panel overflow-y-auto hide-scrollbar max-h-screen"
-                            initial={{ y: 20, opacity: 0 }}
+                            initial={{ y: 5, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: 20, opacity: 0 }}
-                            transition={{ duration: 0.18 }}
+                            transition={{ duration: 2 }}
                         >
                             <DialogTitle className="text-2xl font-bold mb-4">{movie?.title}
                             </DialogTitle>

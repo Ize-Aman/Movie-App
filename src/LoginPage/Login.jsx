@@ -34,7 +34,7 @@ const Login = (props) => {
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" name="" id="" />
                             <motion.button type="button"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={() => navigate("/")}>
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={() => navigate("/home")}>
                                 Login
                             </motion.button>
                             <h3 className="self-start font-semibold text-[11px]">Don't have an account? <Link to={"/register"} className="text-[#9163E2]">Register.</Link></h3>

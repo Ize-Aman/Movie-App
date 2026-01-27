@@ -2,9 +2,10 @@ import React from "react"
 import './Register.css'
 import { motion } from "motion/react";
 import LightRays from "@/components/LightRays";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = (props) => {
+    const navigate = useNavigate();
     return (
         <div className="register-page">
             <div className="login-wrapper" style={{ width: '100%', height: '600px', position: 'relative' }}>
@@ -34,10 +35,10 @@ const Register = (props) => {
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" name="" id="" />
                             <motion.button type="button"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={() => navigate('/home')}>
                                 Sign up
                             </motion.button>
-                            <h3 className="self-start font-semibold text-[11px]">Already have an account? <Link to={"/login"} className="text-[#9163E2]">Login.</Link></h3>
+                            <h3 className="self-start font-semibold text-[11px]">Already have an account? <Link to={"/"} className="text-[#9163E2]">Login.</Link></h3>
 
                         </form>
                     </div>

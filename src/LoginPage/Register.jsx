@@ -2,6 +2,7 @@ import React from "react"
 import './Register.css'
 import { motion } from "motion/react";
 import LightRays from "@/components/LightRays";
+import { Link } from "react-router-dom";
 
 const Register = (props) => {
     return (
@@ -36,7 +37,7 @@ const Register = (props) => {
                                 whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
                                 Sign up
                             </motion.button>
-                            <h3 className="self-start font-semibold text-[11px]">Back to <a href="#" className="text-[#9163E2]">Login.</a></h3>
+                            <h3 className="self-start font-semibold text-[11px]">Already have an account? <Link to={"/login"} className="text-[#9163E2]">Login.</Link></h3>
 
                         </form>
                     </div>

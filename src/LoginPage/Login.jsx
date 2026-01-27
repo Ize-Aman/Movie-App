@@ -2,8 +2,10 @@ import React from "react"
 import LightRays from "@/components/LightRays";
 import './Login.css'
 import { motion } from "motion/react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
+    const navigate = useNavigate();
     return (
         <div className="login-page">
             <div className="login-wrapper" style={{ width: '100%', height: '600px', position: 'relative' }}>
@@ -32,10 +34,10 @@ const Login = (props) => {
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" name="" id="" />
                             <motion.button type="button"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }} onClick={() => navigate("/")}>
                                 Login
                             </motion.button>
-                            <h3 className="self-start font-semibold text-[11px]">Don't have an account? <a href="#" className="text-[#9163E2]">Register.</a></h3>
+                            <h3 className="self-start font-semibold text-[11px]">Don't have an account? <Link to={"/register"} className="text-[#9163E2]">Register.</Link></h3>
                             <hr />
                         </form>
                     </div>

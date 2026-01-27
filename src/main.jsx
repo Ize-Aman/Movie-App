@@ -7,8 +7,8 @@ import Login from './LoginPage/Login'
 import Register from './LoginPage/Register'
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
-  { path: "/home", element: <App /> },
+  { path: '/', element: <Login /> },
+  { path: '/home', element: <App /> },
   { path: "/register", element: <Register /> }
 ])
 

@@ -15,7 +15,12 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                         as={motion.div}
                         className="fixed inset-0 bg-primary/94"
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        animate={{
+                            opacity: 1,
+                            transition: {
+                                opacity: { ease: "linear" }
+                            }
+                        }}
                         exit={{ opacity: 0 }}
                     />
 
@@ -23,10 +28,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                         <DialogPanel
                             as={motion.div}
                             className="modal-panel overflow-y-auto hide-scrollbar max-h-screen"
-                            initial={{ y: 20, opacity: 0 }}
+                            initial={{ y: 5, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: 20, opacity: 0 }}
-                            transition={{ duration: 0.18 }}
+                            transition={{ duration: 2 }}
                         >
                             <DialogTitle className="text-2xl font-bold mb-4">{movie?.title}
                             </DialogTitle>
@@ -42,23 +47,23 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
 
                             <div className="movie-meta">
                                 <div className="meta-row">
-                                    <span className="meta-title">Overview</span>
-                                    <span className="meta-value">{movie.overview}</span>
+                                    <span className="meta-title">Overview </span>
+                                    <span className="meta-value"> {movie.overview}</span>
                                 </div>
 
                                 <div className="meta-row">
-                                    <span className="meta-title">Release Date</span>
-                                    <span className="meta-value">{movie.release_date}</span>
+                                    <span className="meta-title">Release Date </span>
+                                    <span className="meta-value"> {movie.release_date}</span>
                                 </div>
 
                                 <div className="meta-row">
-                                    <span className="meta-title">Status</span>
-                                    <span className="meta-value">Released</span>
+                                    <span className="meta-title">Status </span>
+                                    <span className="meta-value"> Released</span>
                                 </div>
 
                                 <div className="meta-row">
-                                    <span className="meta-title">Language</span>
-                                    <span className="meta-value">English • Korean • Hindi</span>
+                                    <span className="meta-title">Language </span>
+                                    <span className="meta-value"> English • Korean • Hindi</span>
                                 </div>
                             </div>
 

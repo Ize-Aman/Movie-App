@@ -55,12 +55,21 @@ const Register = (props) => {
                 <div className="overlay">
                     <h1>SIGN UP</h1>
                     <h3>Hello there! Register to use our site.</h3>
+                    <p className={`m-0 mt-2 p-0 text-[12px] text-red-500 ${errorMessage === 'Firebase: Error (auth/email-already-in-use).' ? 'block' : 'hidden'}`}>Account already exists!</p>
+                    <p className={`m-0 mt-2 p-0 text-[12px] text-red-500 ${errorMessage === 'Firebase: Error (auth/invalid-email).' ? 'block' : 'hidden'}`}>Invalid Email address!</p>
+                    <p className={`m-0 mt-2 p-0 text-[12px] text-red-500 ${errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).' ? 'block' : 'hidden'}`}>Weak password!</p>
 
                     <div className="email-auth">
                         <form onSubmit={onSubmit}>
                             <input type="text" placeholder="Display name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-                            <input type="email" placeholder="Email *" required value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <input type="password" placeholder="Password *" required value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="email" placeholder="Email *" required value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className={`${errorMessage === 'Firebase: Error (auth/invalid-email).' ? 'border-2 border-red-500 focus:outline-none' : 'border-2 border-transparent focus:outline-none'}`} />
+
+                            <input type="password" placeholder="Password *" required value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className={`${errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).' ? 'border-2 border-red-500 focus:outline-none' : 'border-2 border-transparent focus:outline-none'}`} />
+
                             <motion.button type="submit"
                                 whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
                                 {isRegistering ? <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" /> : 'Sign up'}

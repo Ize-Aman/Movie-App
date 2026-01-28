@@ -21,7 +21,13 @@ const Login = (props) => {
 
         if (!isSigningIn) {
             setIsSigningIn(true);
-            await doSignInWithEmailAndPassword(email, password);
+            try {
+                await doSignInWithEmailAndPassword(email, password);
+            }
+            catch (e) {
+                setErrorMessage(e.message);
+                setIsSigningIn(false)
+            }
         }
     }
 
@@ -63,6 +69,12 @@ const Login = (props) => {
                     <h1>SIGN IN</h1>
                     <h3>It’s nice to have you here! Login now to access <span className="second-line block">your account.</span></h3>
 
+                    <p className={`m-0 mt-2 p-0 text-[12px] text-red-500 
+                        ${errorMessage === 'Firebase: Error (auth/invalid-credential).' ? 'block' : 'hidden'}`}>
+                        An error occured, please check your email and password
+                    </p>
+
+
                     <div className="email-auth">
                         <form onSubmit={onSubmit}>
                             <input
@@ -81,9 +93,8 @@ const Login = (props) => {
                             />
                             <motion.button type="submit"
                                 whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.25)" }}>
-                                {isSigningIn ? <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" /> : 'Login'}
+                                {isSigningIn && !errorMessage ? <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" /> : 'Login'}
                             </motion.button>
-                            {errorMessage && <p className="error">{errorMessage}</p>}
                             <h3 className="self-start font-semibold text-[11px]">Don't have an account? <Link to={"/register"} className="text-[#9163E2]">Register.</Link></h3>
                             <hr />
                         </form>

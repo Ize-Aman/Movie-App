@@ -5,7 +5,7 @@ import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
 import MovieModal from "./components/MovieModal";
 import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
-import { i, li, section } from "motion/react-client";
+import { li, section } from "motion/react-client";
 import { useAuth } from "./contexts/authContext";
 import { Navigate } from "react-router-dom";
 import ProfileModal from "./components/ProfileModal";

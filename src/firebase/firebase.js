@@ -168,4 +168,4 @@ export const getTrendingMovies = async () => {
 
 const auth = getAuth(app);
 
-export { app, auth,  };
+export { app, auth};

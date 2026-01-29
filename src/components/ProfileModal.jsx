@@ -71,7 +71,7 @@ useEffect(() =>{
                 transition={{ duration: 2 }}
                 >
                 <DialogTitle className="font-Sacramento text-2xl mt-4 text-center font-light">
-                    <h1 className="font-light">Hello Natty</h1>
+                    <h1 className="font-light">Hello {auth.currentUser?.displayName || "there"}</h1>
                     <h3 className="mr-30">Welcome Back!</h3>
                 </DialogTitle>
                     <h3 className="font-bold text-left mt-5 text-2xl text-white">Your Watchlist</h3>

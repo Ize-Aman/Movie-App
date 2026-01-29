@@ -27,10 +27,9 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
         const data = docSnap.data();
 
         setInWatchList(
-          data.watchlist?.some((m)=> m.id === movie.id) || false
-        );
+          data.watchlist?.includes(movie.id) || false);
         setInWatched(
-          data.watched?.some((m)=> m.id === movie.id) || false
+          data.watched?.includes(movie.id) || false
         );
       }
     };
@@ -145,8 +144,12 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                     await removeFromWatched(uid, movie);
                     setInWatched(false);
                   } else{
-                    await addToWatched (uid, movie);
+                    await addToWatched(uid, movie);
                     setInWatched(true);
+                    if (inWatchList){
+                      await removeFromWatchList(uid, movie);
+                      setInWatchList(false);
+                    }
                   }
                 }}
                   >

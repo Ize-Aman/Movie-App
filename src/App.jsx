@@ -5,9 +5,10 @@ import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
 import MovieModal from "./components/MovieModal";
 import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
-import { li, section } from "motion/react-client";
+import { i, li, section } from "motion/react-client";
 import { useAuth } from "./contexts/authContext";
 import { Navigate } from "react-router-dom";
+import ProfileModal from "./components/ProfileModal";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -28,6 +29,7 @@ const App = (props) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const { currentUser } = useAuth();
   var displayName = null
@@ -104,6 +106,16 @@ const App = (props) => {
         <header>
           {/*TODO this is how you can access display name*/}
           <h2>{displayName}</h2>
+          <button onClick={() => setIsProfileModalOpen(true)} className="btn-gradient">
+            Open Profile
+          </button>
+          <ProfileModal
+        movies={movieList}
+        isProfileModalOpen={isProfileModalOpen}
+        setIsProfileModalOpen={setIsProfileModalOpen}
+        setSelectedMovie={setSelectedMovie}
+        setIsModalOpen={setIsModalOpen}
+      />
           <img src="./logo.png" alt="" srcset="" className="w-22 mb-0" />
           <img src="./hero.png" alt="hero banner" />
           <h1>
@@ -164,6 +176,9 @@ const App = (props) => {
           setIsModalOpen={setIsModalOpen}
         />
       )}
+      
+
+
     </main>
   );
 };

@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { getDoc } from "firebase/firestore";
 
 const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
-    
+
   const uid = auth.currentUser?.uid;
 
   const [inWatchList, setInWatchList] = useState(false);
@@ -23,7 +23,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
     if (!movie || !uid) return;
     const checkLists = async () => {
       const docSnap = await getDoc(userDocRef(uid));
-      if (docSnap.exists()){
+      if (docSnap.exists()) {
         const data = docSnap.data();
 
         setInWatchList(
@@ -116,46 +116,46 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                 </div>
 
               </div>
-                <div className="action-btn flex gap-4 mt-4">
-              
-                <button 
-                className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full transition-colors ${inWatchList ? 'bg-purple-500 text-white' : 'bg-gray-700 text-gray-300'}`} 
-                onClick={async () => {
-                  if (!uid) return;
+              <div className="action-btn flex gap-4 mt-4">
 
-                  if (inWatchList) {
-                    await removeFromWatchList(uid, movie);
-                    setInWatchList(false);
-                  } else {
-                    await addToWatchList(uid, movie);
-                    setInWatchList(true);
-                  }
-                }}
-            ><img src="../../public/bookmark.svg" alt="watchlist" />
-            <span className="text-xs">
-              {inWatchList ? "In Watchlist" : "Add to Watchlist"}</span>
-            </button>
- 
-                <button className={`flex flex-col items-center gap-1 px-4 py-2 rounded-md transition-colors ${inWatched ? 'bg-purple-500 text-white' : 'bg-gray-700 text-gray-300'}`} 
-                onClick={async () =>{
-                  if (!uid) return;
+                <button
+                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full transition-colors ${inWatchList ? 'bg-purple-500 text-white' : 'bg-gray-700 text-gray-300'}`}
+                  onClick={async () => {
+                    if (!uid) return;
 
-                  if (inWatched){
-                    await removeFromWatched(uid, movie);
-                    setInWatched(false);
-                  } else{
-                    await addToWatched(uid, movie);
-                    setInWatched(true);
-                    if (inWatchList){
+                    if (inWatchList) {
                       await removeFromWatchList(uid, movie);
                       setInWatchList(false);
+                    } else {
+                      await addToWatchList(uid, movie);
+                      setInWatchList(true);
                     }
-                  }
-                }}
-                  >
-                   <img src="../../public/tick.svg" alt="watched" />
-                    <span className="text-xs">
-                      {inWatched ? "Watched" : "Mark as Watched"}</span></button>
+                  }}
+                ><img src="../../public/bookmark.svg" alt="watchlist" />
+                  <span className="text-xs">
+                    {inWatchList ? "In Watchlist" : "Add to Watchlist"}</span>
+                </button>
+
+                <button className={`flex flex-col items-center gap-1 px-4 py-2 rounded-md transition-colors ${inWatched ? 'bg-purple-500 text-white' : 'bg-gray-700 text-gray-300'}`}
+                  onClick={async () => {
+                    if (!uid) return;
+
+                    if (inWatched) {
+                      await removeFromWatched(uid, movie);
+                      setInWatched(false);
+                    } else {
+                      await addToWatched(uid, movie);
+                      setInWatched(true);
+                      if (inWatchList) {
+                        await removeFromWatchList(uid, movie);
+                        setInWatchList(false);
+                      }
+                    }
+                  }}
+                >
+                  <img src="/tick(1).svg" alt="watched" />
+                  <span className="text-xs">
+                    {inWatched ? "Watched" : "Mark as Watched"}</span></button>
               </div>
               console.log("moviemodal movie:", movie);
 

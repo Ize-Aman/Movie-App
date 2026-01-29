@@ -7,7 +7,7 @@ export const doCreateUserWithEmailAndPassword = (email, password) => {
 
 export const doSignInWithEmailAndPassword = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
-}
+};
 
 export const doSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -15,4 +15,8 @@ export const doSignInWithGoogle = async () => {
     //to save to firestore use result.user
 
     return result;
-}
+};
+
+export const doSignOut = async () => {
+    return auth.signOut();
+};

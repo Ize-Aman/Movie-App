@@ -71,7 +71,7 @@ const Register = (props) => {
                                 className={`${errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).' ? 'border-2 border-red-500 focus:outline-none' : 'border-2 border-transparent focus:outline-none'}`} />
 
                             <motion.button type="submit"
-                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.19)" }}>
+                                whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.25)" }}>
                                 {isRegistering ? <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" /> : 'Sign up'}
                             </motion.button>
                             <h3 className="self-start font-semibold text-[11px]">Already have an account? <Link to={"/"} className="text-[#9163E2]">Login.</Link></h3>

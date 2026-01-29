@@ -6,10 +6,13 @@ import {
 } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { auth } from "../firebase/firebase";
+import { useAuth } from "@/contexts/authContext";
 import { useEffect, useState } from "react";
 import { getDoc } from "firebase/firestore";
 import { userDocRef } from "../firebase/firebase";
 import MovieCard from "./MovieCard";
+import { doSignOut } from "@/firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 
@@ -22,6 +25,8 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
 
     const watchListMovies = movies.filter((movie) => watchlist.includes(movie.id));
     const watchedMovies = movies.filter((movie) => watched.includes(movie.id));
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!uid || !isProfileModalOpen) return;
@@ -37,6 +42,20 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
         fetchUserMovies();
     }, [uid, isProfileModalOpen]);
 
+    const { currentUser } = useAuth();
+    var displayName = null
+
+    if (!currentUser) {
+        return <Navigate to={'/'} replace={true} />;
+    } else {
+        displayName = currentUser.displayName ? currentUser.displayName : currentUser.email;
+        if (currentUser.displayName) {
+            displayName = displayName.substring(0, displayName.indexOf(' '));
+        }
+        else {
+            displayName = displayName.substring(0, displayName.indexOf('@'))
+        }
+    }
 
     return (
         <AnimatePresence>
@@ -71,26 +90,28 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                             transition={{ duration: 2 }}
                         >
                             <DialogTitle className="font-Sacramento text-2xl mt-4 text-center font-light">
-                                <h1 className="font-light">Hello {auth.currentUser?.displayName.substring(0, auth.currentUser?.displayName.indexOf(' ')) || "there"}!</h1>
+                                <h1 className="font-light">Hello {displayName || "there"}!</h1>
                                 <h3 className="mr-30">Welcome Back!</h3>
                             </DialogTitle>
 
                             <h3 className="font-bold text-left mt-5 text-2xl text-white">Your Watchlist</h3>
 
-                            <section className="profile-contents">
-                                <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5">
-                                    {watchListMovies.length === 0 && <p>Your watchlist is currently empty.</p>}
+                            <section className="all-movies">
+                                <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5 ">
+                                    <li className="max-w-56 min-w-56 flex gap-5">
+                                        {watchListMovies.length === 0 && <p className="text-red-300">Your watchlist is currently empty.</p>}
 
-                                    {watchListMovies.map((movie) => (
-                                        <MovieCard
-                                            key={movie.id}
-                                            movie={movie}
-                                            onClick={() => {
-                                                setSelectedMovie(movie);
-                                                setIsModalOpen(true);
-                                            }}
-                                        />
-                                    ))}
+                                        {watchListMovies.map((movie) => (
+                                            <MovieCard
+                                                key={movie.id}
+                                                movie={movie}
+                                                onClick={() => {
+                                                    setSelectedMovie(movie);
+                                                    setIsModalOpen(true);
+                                                }}
+                                            />
+                                        ))}
+                                    </li>
 
                                 </ul>
 
@@ -98,29 +119,32 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
 
                             <h3 className="font-bold text-left mt-5 text-2xl text-white">Your Watched movies</h3>
 
-                            <section className="profile-contents">
+                            <section className="all-movies">
 
                                 <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5">
-                                    {watchedMovies.length === 0 && <p>No watched movies yet.</p>}
+                                    <li className="max-w-56 min-w-56 flex gap-5">
 
-                                    {watchedMovies.map((movie) => (
-                                        <MovieCard
-                                            key={movie.id}
-                                            movie={movie}
-                                            onClick={() => {
-                                                setSelectedMovie(movie);
-                                                setIsModalOpen(true);
-                                            }}
-                                        />
-                                    ))}
+                                        {watchedMovies.length === 0 && <p className="text-red-300">No watched movies yet.</p>}
+
+                                        {watchedMovies.map((movie) => (
+                                            <MovieCard
+                                                key={movie.id}
+                                                movie={movie}
+                                                onClick={() => {
+                                                    setSelectedMovie(movie);
+                                                    setIsModalOpen(true);
+                                                }}
+                                            />
+                                        ))}
+                                    </li>
                                 </ul>
                             </section>
 
                             <button
-                                className="btn-gradient m-10"
-                                onClick={() => setIsProfileModalOpen(false)}
+                                className="btn-gradient mt-4 px-5 py-2 font-semibold text-[13px] "
+                                onClick={() => doSignOut().then(() => { navigate('/') })}
                             >
-                                Back
+                                <img src="./logout.svg" alt="" className="inline w-4.5" /> Logout
                             </button>
                         </DialogPanel>
                     </div>

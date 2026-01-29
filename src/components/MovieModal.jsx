@@ -89,7 +89,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
 
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="btn-gradient"
+                className="btn-gradient mt-4 px-4 py-2"
               >
                 Back to Homepage
               </button>

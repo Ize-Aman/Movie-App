@@ -188,22 +188,22 @@
       @apply grid grid-cols-[160px_1fr] gap-6 items-start not-min-[640px]:mt-4;
     }
   }
-}
 
-.profile-modal {
-  @apply relative z-50;
+  .profile-modal {
+    @apply relative z-50;
 
-  & .profile-panel {
-    @apply bg-[#0F0D23] rounded-xl p-6 max-w-[90%] w-250 mt-0 flex flex-col pb-13;
+    & .profile-panel {
+      @apply bg-[#0F0D23] rounded-xl p-6 max-w-[90%] w-250 mt-0 flex flex-col pb-13;
 
-    -webkit-box-shadow: 0px 0px 100px 0px rgba(171, 139, 255, 0.3);
-    box-shadow: 0px 0px 100px 0px rgba(171, 139, 255, 0.3);
+      -webkit-box-shadow: 0px 0px 100px 0px rgba(171, 139, 255, 0.3);
+      box-shadow: 0px 0px 100px 0px rgba(171, 139, 255, 0.3);
 
-    & .profile-contents {
-      @apply flex min-[640px]:flex-row not-md:flex-col not-md:items-center not-sm:items-center mb-7 text-white;
+      & .profile-contents {
+        @apply flex min-[640px]:flex-row not-md:flex-col not-md:items-center not-sm:items-center mb-7 text-white;
 
-      & img {
-        @apply rounded-2xl sm:w-57 sm:mr-10 not-md:mb-7 min-[470px]:max-[640px]:w-57;
+        & img {
+          @apply rounded-2xl sm:w-57 sm:mr-10 not-md:mb-7 min-[470px]:max-[640px]:w-57;
+        }
       }
     }
   }
@@ -214,7 +214,7 @@
 }
 
 @utility btn-gradient {
-  @apply mt-4 px-4 py-2 text-black rounded cursor-pointer bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] self-end;
+  @apply text-black rounded cursor-pointer bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] self-end;
 }
 
 @utility fancy-text {

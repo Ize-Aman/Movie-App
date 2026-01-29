@@ -31,20 +31,6 @@ const App = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  const { currentUser } = useAuth();
-  var displayName = null
-
-  if (!currentUser) {
-    return <Navigate to={'/'} replace={true} />;
-  } else {
-    displayName = currentUser.displayName ? currentUser.displayName : currentUser.email;
-    if (currentUser.displayName) {
-      displayName = displayName.substring(0, displayName.indexOf(' '));
-    }
-    else {
-      displayName = displayName.substring(0, displayName.indexOf('@'))
-    }
-  }
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
@@ -100,22 +86,22 @@ const App = (props) => {
   };
 
   return (
-    <main>
+    <main className="">
       <div className="pattern" />
       <div className="wrapper">
         <header>
-          {/*TODO this is how you can access display name*/}
-          <h2>{displayName}</h2>
-          <button onClick={() => setIsProfileModalOpen(true)} className="btn-gradient">
-            Open Profile
-          </button>
+          <div className="flex justify-end m-0 p-0">
+            <button onClick={() => setIsProfileModalOpen(true)} className="btn-gradient">
+              Open Profile
+            </button>
+          </div>
           <ProfileModal
-        movies={movieList}
-        isProfileModalOpen={isProfileModalOpen}
-        setIsProfileModalOpen={setIsProfileModalOpen}
-        setSelectedMovie={setSelectedMovie}
-        setIsModalOpen={setIsModalOpen}
-      />
+            movies={movieList}
+            isProfileModalOpen={isProfileModalOpen}
+            setIsProfileModalOpen={setIsProfileModalOpen}
+            setSelectedMovie={setSelectedMovie}
+            setIsModalOpen={setIsModalOpen}
+          />
           <img src="./logo.png" alt="" srcset="" className="w-22 mb-0" />
           <img src="./hero.png" alt="hero banner" />
           <h1>
@@ -176,7 +162,7 @@ const App = (props) => {
           setIsModalOpen={setIsModalOpen}
         />
       )}
-      
+
 
 
     </main>

@@ -8,11 +8,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { addToWatchList, addToWatched, removeFromWatchList, removeFromWatched } from "../firebase/firebase";
 import { auth, userDocRef } from "../firebase/firebase";
 import { useEffect, useState } from "react";
-
 import { getDoc } from "firebase/firestore";
 
+
 const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
-    
+
   const uid = auth.currentUser?.uid;
 
   const [inWatchList, setInWatchList] = useState(false);
@@ -23,7 +23,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
     if (!movie || !uid) return;
     const checkLists = async () => {
       const docSnap = await getDoc(userDocRef(uid));
-      if (docSnap.exists()){
+      if (docSnap.exists()) {
         const data = docSnap.data();
 
         setInWatchList(
@@ -115,49 +115,58 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                   <span className="meta-value"> English • Korean • Hindi</span>
                 </div>
 
-              </div>
-                <div className="action-btn flex gap-4 mt-4">
-              
-                <button 
-                className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full transition-colors ${inWatchList ? 'bg-purple-500 text-white' : 'bg-gray-700 text-gray-300'}`} 
-                onClick={async () => {
-                  if (!uid) return;
+                <div className="meta-row text-center max-w-20 btns">
+                  <span className="meta-title max-w-19">
+                    <button
+                      onClick={async () => {
+                        if (!uid) return;
 
-                  if (inWatchList) {
-                    await removeFromWatchList(uid, movie);
-                    setInWatchList(false);
-                  } else {
-                    await addToWatchList(uid, movie);
-                    setInWatchList(true);
-                  }
-                }}
-            ><img src="../../public/bookmark.svg" alt="watchlist" />
-            <span className="text-xs">
-              {inWatchList ? "In Watchlist" : "Add to Watchlist"}</span>
-            </button>
- 
-                <button className={`flex flex-col items-center gap-1 px-4 py-2 rounded-md transition-colors ${inWatched ? 'bg-purple-500 text-white' : 'bg-gray-700 text-gray-300'}`} 
-                onClick={async () =>{
-                  if (!uid) return;
+                        if (inWatchList) {
+                          await removeFromWatchList(uid, movie);
+                          setInWatchList(false);
+                        } else {
+                          await addToWatchList(uid, movie);
+                          setInWatchList(true);
+                        }
+                      }}
 
-                  if (inWatched){
-                    await removeFromWatched(uid, movie);
-                    setInWatched(false);
-                  } else{
-                    await addToWatched(uid, movie);
-                    setInWatched(true);
-                    if (inWatchList){
-                      await removeFromWatchList(uid, movie);
-                      setInWatchList(false);
-                    }
-                  }
-                }}
-                  >
-                   <img src="../../public/tick.svg" alt="watched" />
-                    <span className="text-xs">
-                      {inWatched ? "Watched" : "Mark as Watched"}</span></button>
+                      className={`rounded-full p-3 cursor-pointer ${inWatchList ? 'border-[#9068FF] border mb-1.5' : 'border-white'}`}
+
+                    ><img src="/Bookmark.png" alt="watchlist" className="w-4" />
+                    </button>
+                    <span className="text-[75%]">
+                      <p>{inWatchList ? "Watchlisted" : "Add to Watchlist"} </p>
+                    </span>
+                  </span>
+
+                  <span className="meta-title self-center">
+                    <button
+                      onClick={async () => {
+                        if (!uid) return;
+
+                        if (inWatched) {
+                          await removeFromWatched(uid, movie);
+                          setInWatched(false);
+                        } else {
+                          await addToWatched(uid, movie);
+                          setInWatched(true);
+                          if (inWatchList) {
+                            await removeFromWatchList(uid, movie);
+                            setInWatchList(false);
+                          }
+                        }
+                      }}
+
+                      className={`rounded-full p-3 cursor-pointer ${inWatched ? 'border-[#9068FF] border mb-1.5' : 'border-white'}`}
+                    >
+                      <img src="/tick.svg" alt="watched" className={`w-4 ${inWatched ? 'text-[#9068FF]' : 'text-white'}`} />
+                    </button>
+                    <span className="text-[75%]">
+                      <p>{inWatched ? "Watched" : "Add to Watched"}</p>
+                    </span>
+                  </span>
+                </div>
               </div>
-              console.log("moviemodal movie:", movie);
 
             </DialogPanel>
           </div>

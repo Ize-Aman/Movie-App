@@ -16,8 +16,5 @@ export default defineConfig({
   },
   plugins: [react(), tailwindcss()],
   base: process.env.VITE_BASE_PATH || "/Movie-App",
-  build: {
-    chunkSizeWarningLimit: 1000, // Set the limit in KiB (e.g., 1000 kB)
-  },
 })
 

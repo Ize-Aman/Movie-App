@@ -16,15 +16,24 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 
 
+const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const API_OPTIONS = {
+    method: "GET",
+    headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+    },
+};
+
 const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSelectedMovie, setIsModalOpen }) => {
 
     const uid = auth.currentUser?.uid;
 
     const [watchlist, setWatchlist] = useState([]);
     const [watched, setWatched] = useState([]);
-
-    const watchListMovies = movies.filter((movie) => watchlist.includes(movie.id));
-    const watchedMovies = movies.filter((movie) => watched.includes(movie.id));
+    const [watchListMovies, setWatchListMovies] = useState([]);
+    const [watchedMovies, setWatchedMovies] = useState([]);
 
     const navigate = useNavigate();
 
@@ -37,10 +46,75 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                 const data = snap.data();
                 setWatchlist(data.watchlist || []);
                 setWatched(data.watched || []);
+            } else {
+                setWatchlist([]);
+                setWatched([]);
             }
         };
+
         fetchUserMovies();
     }, [uid, isProfileModalOpen]);
+
+    useEffect(() => {
+        if (!isProfileModalOpen) return;
+
+        const getEntryId = (entry) => {
+            if (typeof entry === "object" && entry !== null) {
+                return entry.id;
+            }
+            return entry;
+        };
+
+        const fetchMovieById = async (id) => {
+            const response = await fetch(`${API_BASE_URL}/movie/${id}`, API_OPTIONS);
+            if (!response.ok) throw new Error("Failed to fetch movie details");
+            return response.json();
+        };
+
+        const fetchLists = async () => {
+            try {
+                if (watchlist.length === 0) {
+                    setWatchListMovies([]);
+                } else {
+                    const watchlistData = await Promise.all(
+                        watchlist
+                            .map((entry) => {
+                                if (typeof entry === "object" && entry !== null) {
+                                    return entry;
+                                }
+                                const id = getEntryId(entry);
+                                if (!id) return null;
+                                return fetchMovieById(id);
+                            })
+                    );
+                    setWatchListMovies(watchlistData.filter(Boolean));
+                }
+
+                if (watched.length === 0) {
+                    setWatchedMovies([]);
+                } else {
+                    const watchedData = await Promise.all(
+                        watched
+                            .map((entry) => {
+                                if (typeof entry === "object" && entry !== null) {
+                                    return entry;
+                                }
+                                const id = getEntryId(entry);
+                                if (!id) return null;
+                                return fetchMovieById(id);
+                            })
+                    );
+                    setWatchedMovies(watchedData.filter(Boolean));
+                }
+            } catch (error) {
+                console.error("Error fetching list movies:", error);
+                setWatchListMovies([]);
+                setWatchedMovies([]);
+            }
+        };
+
+        fetchLists();
+    }, [isProfileModalOpen, watchlist, watched]);
 
     const { currentUser } = useAuth();
     var displayName = null

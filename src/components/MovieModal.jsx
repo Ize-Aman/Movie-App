@@ -127,6 +127,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                         } else {
                           await addToWatchList(uid, movie);
                           setInWatchList(true);
+                          if (inWatched) {
+                            await removeFromWatched(uid, movie);
+                            setInWatched(false);
+                          }
                         }
                       }}
 

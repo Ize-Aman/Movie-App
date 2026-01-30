@@ -81,7 +81,9 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
         checkLists();
     }, [movie, uid]);
 
-    const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : "N/A";
+    const releaseYear = movie.release_date
+        ? new Date(movie.release_date).getFullYear()
+        : "N/A";
 
     const formatVotes = (votes) => {
         if (!votes) return "0";
@@ -123,14 +125,20 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 <div className="flex items-center gap-1 bg-gray-800 text-white px-2 py-1 rounded">
                                     <img src="/star.svg" alt="star" className="w-4 h-4" />
                                     <span>
-                                        {details?.vote_average ? details.vote_average.toFixed(1) : "N/A"} / 10
-                                        {details?.vote_count ? ` (${formatVotes(details.vote_count)})` : ""}
+                                        {details?.vote_average
+                                            ? details.vote_average.toFixed(1)
+                                            : "N/A"}{" "}
+                                        / 10
+                                        {details?.vote_count
+                                            ? ` (${formatVotes(details.vote_count)})`
+                                            : ""}
                                     </span>
                                 </div>
                             </div>
 
                             <p className="meta-title text-[12px] pb-5">
-                                {releaseYear} • {details?.certification || "PG"} • {details?.runtime ? `${details.runtime} min` : "N/A"}
+                                {releaseYear} • {details?.certification || "PG"} •{" "}
+                                {details?.runtime ? `${details.runtime} min` : "N/A"}
                             </p>
 
                             <div className="modal-contents flex gap-4">
@@ -148,8 +156,8 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                         videoId={trailerKey}
                                         className="w-2/3"
                                         opts={{
-                                            width: '100%',
-                                            height: '100%',
+                                            width: "100%",
+                                            height: "100%",
                                             playerVars: { autoplay: 0 },
                                         }}
                                     />
@@ -168,7 +176,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                     <span className="meta-title">Genres</span>
                                     <span className="meta-value flex flex-wrap gap-2">
                                         {details?.genres?.map((g) => (
-                                            <div key={g.id} className="bg-gray-800 text-white px-2 py-1 rounded text-sm">
+                                            <div
+                                                key={g.id}
+                                                className="bg-gray-800 text-white px-2 py-1 rounded text-sm"
+                                            >
                                                 {g.name}
                                             </div>
                                         )) || "N/A"}
@@ -193,7 +204,8 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 <div className="meta-row">
                                     <span className="meta-title">Language</span>
                                     <span className="meta-value">
-                                        {languages.map(l => l.english_name).join(" • ") || "N/A"}
+                                        {languages.map((l) => l.english_name).join(" • ") ||
+                                            "N/A"}
                                     </span>
                                 </div>
 
@@ -225,7 +237,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
 
                             <div className="action-btn flex gap-4 mt-4">
                                 <button
-                                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full cursor-pointer bg-blue-600 text-white`}
+                                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatchList
+                                            ? "bg-green-400 text-white"
+                                            : "bg-blue-600 text-white"
+                                        }`}
                                     onClick={async () => {
                                         if (!uid) return;
                                         if (inWatchList) {
@@ -239,12 +254,19 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 >
                                     <span className="flex items-center gap-2">
                                         {inWatchList ? "In Watchlist" : "Add to Watchlist"}
-                                        <img src="/Group 66732.png" alt="watchlist icon" className="w-5 h-5" />
+                                        <img
+                                            src="/Group 66732.png"
+                                            alt="watchlist icon"
+                                            className="w-5 h-5"
+                                        />
                                     </span>
                                 </button>
 
                                 <button
-                                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full cursor-pointer bg-blue-600 text-white`}
+                                    className={`flex flex-col items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatched
+                                            ? "bg-green-400 text-white"
+                                            : "bg-blue-600 text-white"
+                                        }`}
                                     onClick={async () => {
                                         if (!uid) return;
                                         if (inWatched) {
@@ -262,7 +284,11 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                                 >
                                     <span className="flex items-center gap-2">
                                         {inWatched ? "Watched" : "Mark as Watched"}
-                                        <img src="/Group 66731.png" alt="watched icon" className="w-5 h-5" />
+                                        <img
+                                            src="/Group 66731.png"
+                                            alt="watched icon"
+                                            className="w-5 h-5"
+                                        />
                                     </span>
                                 </button>
                             </div>

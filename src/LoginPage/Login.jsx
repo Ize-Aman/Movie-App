@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import LightRays from "@/components/LightRays";
 import './Login.css'
 import { ThreeDot } from "react-loading-indicators";
@@ -110,7 +110,7 @@ const Login = (props) => {
                             </motion.button>
                             <motion.button type="button"
                                 whileHover={{ boxShadow: "0 2px 20px rgba(255,255,255,0.25)" }}>
-                                <img src="./facebook.svg" alt="" srcset="" />
+                                <img src="./facebook.svg" alt="" srcSet="" />
                                 Facebook
                             </motion.button>
                         </div>

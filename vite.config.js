@@ -15,6 +15,7 @@ export default defineConfig({
     }
   },
   plugins: [react(), tailwindcss()],
+  base: process.env.VITE_BASE_PATH || "/Movie-App",
   server: {
     watch: {
       usePolling: true

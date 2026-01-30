@@ -237,65 +237,71 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                     {details?.tagline || "N/A"}
                   </span>
                 </div>
+
+                <div className="meta-row">
+                  <span className="meta-title">
+                    <button
+                      className={`flex flex-col items-center gap-1 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatchList
+                        ? "bg-green-400 text-white"
+                        : "bg-blue-600 text-white"
+                        }`}
+                      onClick={async () => {
+                        if (!uid) return;
+                        if (inWatchList) {
+                          await removeFromWatchList(uid, movie);
+                          setInWatchList(false);
+                        } else {
+                          await addToWatchList(uid, movie);
+                          setInWatchList(true);
+                        }
+                      }}
+                    >
+                      <span className="flex items-center gap-2 text-[13px]">
+                        {inWatchList ? "Watchlisted" : "Watchlist"}
+                        <img
+                          src="./Group 66731.png"
+                          alt="watchlist icon"
+                          className="w-5 h-5"
+                        />
+                      </span>
+                    </button>
+                  </span>
+
+                  <span className="meta-title">
+                    <button
+                      className={`flex flex-col items-center gap-2 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatched
+                        ? "bg-green-400 text-white"
+                        : "bg-blue-600 text-white"
+                        }`}
+                      onClick={async () => {
+                        if (!uid) return;
+                        if (inWatched) {
+                          await removeFromWatched(uid, movie);
+                          setInWatched(false);
+                        } else {
+                          await addToWatched(uid, movie);
+                          setInWatched(true);
+                          if (inWatchList) {
+                            await removeFromWatchList(uid, movie);
+                            setInWatchList(false);
+                          }
+                        }
+                      }}
+                    >
+                      <span className="flex items-center gap-2 text-[13px]">
+                        Watched
+                        <img
+                          src="./Group 66732.png"
+                          alt="watched icon"
+                          className="w-5 h-5"
+                        />
+                      </span>
+                    </button>
+                  </span>
+                </div>
               </div>
 
-              <div className="action-btn flex gap-4 mt-4">
-                <button
-                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatchList
-                    ? "bg-green-400 text-white"
-                    : "bg-blue-600 text-white"
-                    }`}
-                  onClick={async () => {
-                    if (!uid) return;
-                    if (inWatchList) {
-                      await removeFromWatchList(uid, movie);
-                      setInWatchList(false);
-                    } else {
-                      await addToWatchList(uid, movie);
-                      setInWatchList(true);
-                    }
-                  }}
-                >
-                  <span className="flex items-center gap-2">
-                    {inWatchList ? "Watchlisted" : "Watchlist"}
-                    <img
-                      src="./Group 66731.png"
-                      alt="watchlist icon"
-                      className="w-5 h-5"
-                    />
-                  </span>
-                </button>
 
-                <button
-                  className={`flex flex-col items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatched
-                    ? "bg-green-400 text-white"
-                    : "bg-blue-600 text-white"
-                    }`}
-                  onClick={async () => {
-                    if (!uid) return;
-                    if (inWatched) {
-                      await removeFromWatched(uid, movie);
-                      setInWatched(false);
-                    } else {
-                      await addToWatched(uid, movie);
-                      setInWatched(true);
-                      if (inWatchList) {
-                        await removeFromWatchList(uid, movie);
-                        setInWatchList(false);
-                      }
-                    }
-                  }}
-                >
-                  <span className="flex items-center gap-2">
-                    Watched
-                    <img
-                      src="./Group 66732.png"
-                      alt="watched icon"
-                      className="w-5 h-5"
-                    />
-                  </span>
-                </button>
-              </div>
             </DialogPanel>
           </div>
         </Dialog>

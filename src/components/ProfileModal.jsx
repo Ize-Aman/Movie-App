@@ -13,6 +13,7 @@ import { userDocRef } from "../firebase/firebase";
 import MovieCard from "./MovieCard";
 import { doSignOut } from "@/firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
+import { ThreeDot } from "react-loading-indicators";
 
 
 
@@ -35,6 +36,7 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
     const [watchListMovies, setWatchListMovies] = useState([]);
     const [watchedMovies, setWatchedMovies] = useState([]);
     const [profileDisplayName, setProfileDisplayName] = useState("");
+    const [isListsLoading, setIsListsLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -75,6 +77,7 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
         };
 
         const fetchLists = async () => {
+            setIsListsLoading(true);
             try {
                 if (watchlist.length === 0) {
                     setWatchListMovies([]);
@@ -113,6 +116,8 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                 console.error("Error fetching list movies:", error);
                 setWatchListMovies([]);
                 setWatchedMovies([]);
+            } finally {
+                setIsListsLoading(false);
             }
         };
 
@@ -178,7 +183,13 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                             <section className="all-movies">
                                 <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5 ">
                                     <li className="max-w-56 min-w-56 flex gap-5">
-                                        {watchListMovies.length === 0 && <p className="text-red-300">Your watchlist is currently empty.</p>}
+                                        {isListsLoading && watchListMovies.length === 0 && (
+                                            <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" />
+                                        )}
+
+                                        {!isListsLoading && watchListMovies.length === 0 && (
+                                            <p className="text-red-300">Your watchlist is currently empty.</p>
+                                        )}
 
                                         {watchListMovies.map((movie, index) => (
                                             <MovieCard
@@ -202,8 +213,13 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
 
                                 <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5">
                                     <li className="max-w-56 min-w-56 flex gap-5">
+                                        {isListsLoading && watchedMovies.length === 0 && (
+                                            <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" />
+                                        )}
 
-                                        {watchedMovies.length === 0 && <p className="text-red-300">No watched movies yet.</p>}
+                                        {!isListsLoading && watchedMovies.length === 0 && (
+                                            <p className="text-red-300">No watched movies yet.</p>
+                                        )}
 
                                         {watchedMovies.map((movie, index) => (
                                             <MovieCard

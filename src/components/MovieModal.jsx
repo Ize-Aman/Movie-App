@@ -139,7 +139,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                 {details?.runtime ? `${details.runtime} min` : "N/A"}
               </p>
 
-              <div className="modal-contents flex gap-4">
+              <div className="modal-contents flex px-2">
                 <img
                   src={
                     movie.poster_path
@@ -147,12 +147,11 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                       : "./no-movie.png"
                   }
                   alt="Movie"
-                  className="w-1/3 max-h-[320px] object-cover rounded"
                 />
                 {trailerKey && (
                   <YouTube
                     videoId={trailerKey}
-                    className="w-2/3 max-h-[320px]"
+                    className="w-screen"
                     opts={{
                       width: "100%",
                       height: "100%",
@@ -177,7 +176,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                   </div>
                   <button
                     onClick={() => setIsModalOpen(false)}
-                    className="btn-gradient px-5 py-3 text-sm"
+                    className="btn-gradient px-5 py-2 text-sm"
                   >
                     Back to Homepage
                   </button>
@@ -229,64 +228,70 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                   </span>
                 </div>
 
-                <div className="flex gap-2 mt-2">
-                  <button
-                    className={`flex items-center gap-2 px-3 py-3 rounded-full cursor-pointer transition-colors duration-300 ${
-                      inWatchList ? "bg-green-400 text-white" : "bg-blue-600 text-white"
-                    }`}
-                    onClick={async () => {
-                      if (!uid) return;
-                      if (inWatchList) {
-                        await removeFromWatchList(uid, movie);
-                        setInWatchList(false);
-                      } else {
-                        await addToWatchList(uid, movie);
-                        setInWatchList(true);
-                        if (inWatched) {
-                          await removeFromWatched(uid, movie);
-                          setInWatched(false);
-                        }
-                      }
-                    }}
-                  >
-                    <span className="flex items-center gap-2 text-[14px]">
-                      {inWatchList ? "Watchlisted" : "Watchlist"}
-                      <img
-                        src="./Group 66731.png"
-                        alt="watchlist icon"
-                        className="w-5 h-5"
-                      />
-                    </span>
-                  </button>
-
-                  <button
-                    className={`flex items-center gap-2 px-3 py-3 rounded-full cursor-pointer transition-colors duration-300 ${
-                      inWatched ? "bg-green-400 text-white" : "bg-blue-600 text-white"
-                    }`}
-                    onClick={async () => {
-                      if (!uid) return;
-                      if (inWatched) {
-                        await removeFromWatched(uid, movie);
-                        setInWatched(false);
-                      } else {
-                        await addToWatched(uid, movie);
-                        setInWatched(true);
+                <div className="meta-row btns">
+                  <span className="meta-title">
+                    <button
+                      className={`flex flex-col items-center gap-1 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatchList
+                        ? "bg-green-400 text-white"
+                        : "bg-blue-600 text-white"
+                        }`}
+                      onClick={async () => {
+                        if (!uid) return;
                         if (inWatchList) {
                           await removeFromWatchList(uid, movie);
                           setInWatchList(false);
+                        } else {
+                          await addToWatchList(uid, movie);
+                          setInWatchList(true);
+                          if (inWatched) {
+                            await removeFromWatched(uid, movie);
+                            setInWatched(false);
+                          }
                         }
-                      }
-                    }}
-                  >
-                    <span className="flex items-center gap-2 text-[14px]">
-                      Watched
-                      <img
-                        src="./Group 66732.png"
-                        alt="watched icon"
-                        className="w-5 h-5"
-                      />
-                    </span>
-                  </button>
+                      }}
+                    >
+                      <span className="flex items-center gap-2 text-[13px]">
+                        {inWatchList ? "Watchlisted" : "Watchlist"}
+                        <img
+                          src="./Group 66731.png"
+                          alt="watchlist icon"
+                          className="w-5 h-5"
+                        />
+                      </span>
+                    </button>
+                  </span>
+
+                  <span className="meta-title">
+                    <button
+                      className={`flex flex-col items-center gap-2 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatched
+                        ? "bg-green-400 text-white"
+                        : "bg-blue-600 text-white"
+                        }`}
+                      onClick={async () => {
+                        if (!uid) return;
+                        if (inWatched) {
+                          await removeFromWatched(uid, movie);
+                          setInWatched(false);
+                        } else {
+                          await addToWatched(uid, movie);
+                          setInWatched(true);
+                          if (inWatchList) {
+                            await removeFromWatchList(uid, movie);
+                            setInWatchList(false);
+                          }
+                        }
+                      }}
+                    >
+                      <span className="flex items-center gap-2 text-[13px]">
+                        Watched
+                        <img
+                          src="./Group 66732.png"
+                          alt="watched icon"
+                          className="w-5 h-5"
+                        />
+                      </span>
+                    </button>
+                  </span>
                 </div>
               </div>
             </DialogPanel>

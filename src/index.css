@@ -162,29 +162,29 @@
           @apply rounded-2xl sm:w-57 sm:mr-10 not-md:mb-7 min-[470px]:max-[640px]:w-57;
         }
 
-        & video {
-          @apply rounded-2xl w-full;
+        & .vid {
+          @apply rounded-2xl w-screen overflow-hidden;
         }
       }
     }
 
-    & .movie-meta {
+    .movie-meta {
       @apply min-[640px]:flex min-[640px]:flex-col min-[640px]:gap-5 min-[640px]:mt-6;
     }
 
-    & .meta-row {
+    .meta-row {
       @apply min-[640px]:grid min-[640px]:grid-cols-[160px_1fr] min-[640px]:gap-6 min-[640px]:items-start;
     }
 
-    & .meta-title {
+    .meta-title {
       @apply text-[#A8B5DB] text-sm font-medium;
     }
 
-    & .meta-value {
+    .meta-value {
       @apply text-white text-sm leading-relaxed;
     }
 
-    & .btns {
+    .btns {
       @apply grid grid-cols-[160px_1fr] gap-6 items-start not-min-[640px]:mt-4;
     }
   }

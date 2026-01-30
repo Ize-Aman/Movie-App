@@ -180,9 +180,9 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                                     <li className="max-w-56 min-w-56 flex gap-5">
                                         {watchListMovies.length === 0 && <p className="text-red-300">Your watchlist is currently empty.</p>}
 
-                                        {watchListMovies.map((movie) => (
+                                        {watchListMovies.map((movie, index) => (
                                             <MovieCard
-                                                key={movie.id}
+                                                key={`${movie.id}-${index}`}
                                                 movie={movie}
                                                 onClick={() => {
                                                     setSelectedMovie(movie);
@@ -205,9 +205,9 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
 
                                         {watchedMovies.length === 0 && <p className="text-red-300">No watched movies yet.</p>}
 
-                                        {watchedMovies.map((movie) => (
+                                        {watchedMovies.map((movie, index) => (
                                             <MovieCard
-                                                key={movie.id}
+                                                key={`${movie.id}-${index}`}
                                                 movie={movie}
                                                 onClick={() => {
                                                     setSelectedMovie(movie);

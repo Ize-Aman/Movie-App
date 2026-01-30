@@ -28,6 +28,7 @@
     "react-loading-indicators": "^1.0.1",
     "react-router-dom": "^7.13.0",
     "react-use": "^17.6.0",
+    "react-youtube": "^10.1.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18"
   },

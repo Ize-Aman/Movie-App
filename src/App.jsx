@@ -31,10 +31,6 @@ const App = () => {
 
   const { currentUser } = useAuth();
 
-  if (!currentUser) {
-    return <Navigate to="/" replace />;
-  }
-
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
   useEffect(() => {
@@ -44,6 +40,10 @@ const App = () => {
   useEffect(() => {
     loadTrendingMovies();
   }, []);
+
+  if (!currentUser) {
+    return <Navigate to="/" replace />;
+  }
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
@@ -121,7 +121,7 @@ const App = () => {
             <h2>Trending Movies</h2>
             <ul>
               {trendingMovies.map((movie, index) => (
-                <li key={movie.movie_id}>
+                <li key={movie.id}>
                   <p>{index + 1}</p>
                   <img src={movie.poster_url} alt={movie.title} />
                 </li>

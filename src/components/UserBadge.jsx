@@ -45,18 +45,17 @@ const UserBadge = ({ movies, setSelectedMovie, setIsModalOpen }) => {
       : DEFAULT_AVATAR;
 
   return (
-    <div className="relative ml-auto">
-      {/* Badge box */}
+    <div className="relative">
       <div
         onClick={() => setIsProfileModalOpen(true)}
-        className="flex items-center gap-3 bg-gray-800 text-white px-3 py-1 rounded-full shadow-md cursor-pointer hover:bg-gray-700 transition"
+        className="flex items-center gap-2 bg-gray-800 text-white px-3 py-1 rounded-full shadow-md cursor-pointer hover:bg-gray-700 transition"
       >
         <img
           src={avatarToShow}
           alt="Profile"
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-8 h-8 rounded-full object-cover"
         />
-        <span className="font-semibold text-white">
+        <span className="font-medium text-sm text-white">
           {displayName}
         </span>
       </div>

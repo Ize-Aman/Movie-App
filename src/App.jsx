@@ -53,25 +53,18 @@ const App = () => {
       const endPoint = query
         ? `${API_BASE_URL}/search/movie?query=${encodeURI(query)}`
         : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
-      const response = await fetch(endPoint, API_OPTIONS);
 
+      const response = await fetch(endPoint, API_OPTIONS);
       if (!response.ok) throw new Error("Failed to fetch movies");
 
       const data = await response.json();
-
-      if (data.response === false) {
-        setError(data.error || "Failed to fetch movies");
-        setMovieList([]);
-        return;
-      }
-
       setMovieList(data.results || []);
 
-      if (query && data.results.length > 0) {
+      if (query && data.results?.length > 0) {
         await updateSearchCount(query, data.results[0]);
       }
     } catch (e) {
-      console.error(`Error fetching movies: ${e}`);
+      console.error(e);
       setError("Error fetching movies, please try again later");
     } finally {
       setIsLoading(false);
@@ -83,25 +76,36 @@ const App = () => {
       const movies = await getTrendingMovies();
       setTrendingMovies(movies);
     } catch (error) {
-      console.log(`Error fetching trending movies: ${error}`);
+      console.log(error);
     }
   };
 
   return (
-    <main className="">
+    <main>
       <div className="pattern" />
       <div className="wrapper">
         <header className="flex flex-col items-center">
-          {/* Top bar with UserBadge on the right */}
-          <div className="flex justify-end items-center w-full mb-4">
-            <UserBadge
-              movies={movieList}
-              setSelectedMovie={setSelectedMovie}
-              setIsModalOpen={setIsModalOpen}
+          
+          {/* TOP BAR */}
+          <div className="relative w-full flex items-center mb-4">
+            
+            {/* Centered Logo (absolute, never moves) */}
+            <img
+              src="./logo.png"
+              alt="logo"
+              className="absolute left-1/2 -translate-x-1/2 w-22"
             />
+
+            {/* Right-side Profile Badge */}
+            <div className="ml-auto">
+              <UserBadge
+                movies={movieList}
+                setSelectedMovie={setSelectedMovie}
+                setIsModalOpen={setIsModalOpen}
+              />
+            </div>
           </div>
 
-          <img src="./logo.png" alt="logo" className="w-22 mb-0" />
           <img src="./hero.png" alt="hero banner" />
 
           <h1 className="text-center">
@@ -130,13 +134,7 @@ const App = () => {
           <h2>{debouncedSearchTerm ? "Search Results" : "Popular Movies"}</h2>
 
           {isLoading ? (
-            <ThreeDot
-              variant="pulsate"
-              color="#4B0082"
-              size="medium"
-              text=""
-              textColor=""
-            />
+            <ThreeDot variant="pulsate" color="#4B0082" size="medium" />
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
@@ -149,7 +147,7 @@ const App = () => {
                     setSelectedMovie(movie);
                     setIsModalOpen(true);
                   }}
-                  isModalOpen={selectedMovie === movie && isModalOpen}
+                  isModalOpen={isModalOpen}
                 />
               ))}
             </ul>
@@ -164,9 +162,6 @@ const App = () => {
           setIsModalOpen={setIsModalOpen}
         />
       )}
-
-
-
     </main>
   );
 };

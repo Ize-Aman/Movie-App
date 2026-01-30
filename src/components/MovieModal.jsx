@@ -20,7 +20,6 @@ const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
-
   const uid = auth.currentUser?.uid;
 
   const [inWatchList, setInWatchList] = useState(false);
@@ -73,15 +72,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
       const docSnap = await getDoc(userDocRef(uid));
       if (docSnap.exists()) {
         const data = docSnap.data();
-
-        setInWatchList(
-          data.watchlist?.includes(movie.id) || false);
-        setInWatched(
-          data.watched?.includes(movie.id) || false
-        );
+        setInWatchList(data.watchlist?.includes(movie.id) || false);
+        setInWatched(data.watched?.includes(movie.id) || false);
       }
     };
-
     checkLists();
   }, [movie, uid]);
 
@@ -153,12 +147,12 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                       : "./no-movie.png"
                   }
                   alt="Movie"
-                  className="w-1/3"
+                  className="w-1/3 max-h-[320px] object-cover rounded"
                 />
                 {trailerKey && (
                   <YouTube
                     videoId={trailerKey}
-                    className="w-2/3"
+                    className="w-2/3 max-h-[320px]"
                     opts={{
                       width: "100%",
                       height: "100%",
@@ -168,17 +162,10 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                 )}
               </div>
 
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="btn-gradient mt-4 px-4 py-2"
-              >
-                Back to Homepage
-              </button>
-
-              <div className="movie-meta mt-4">
-                <div className="meta-row">
-                  <span className="meta-title">Genres</span>
-                  <span className="meta-value flex flex-wrap gap-2">
+              <div className="movie-meta mt-4 space-y-2">
+                <div className="flex justify-between items-start">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="meta-title w-[120px]">Genres:</span>
                     {details?.genres?.map((g) => (
                       <div
                         key={g.id}
@@ -187,124 +174,121 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                         {g.name}
                       </div>
                     )) || "N/A"}
+                  </div>
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="btn-gradient px-5 py-3 text-sm"
+                  >
+                    Back to Homepage
+                  </button>
+                </div>
+
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Overview:</span>
+                  <span className="meta-value flex-1">{movie.overview}</span>
+                </div>
+
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Release Date:</span>
+                  <span className="meta-value flex-1">{movie.release_date}</span>
+                </div>
+
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Status:</span>
+                  <span className="meta-value flex-1">Released</span>
+                </div>
+
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Language:</span>
+                  <span className="meta-value flex-1">
+                    {languages
+                      .slice(0, 6)
+                      .map((l) => l.english_name)
+                      .join(" • ") || "N/A"}
                   </span>
                 </div>
 
-                <div className="meta-row">
-                  <span className="meta-title">Overview</span>
-                  <span className="meta-value">{movie.overview}</span>
-                </div>
-
-                <div className="meta-row">
-                  <span className="meta-title">Release Date</span>
-                  <span className="meta-value">{movie.release_date}</span>
-                </div>
-
-                <div className="meta-row">
-                  <span className="meta-title">Status</span>
-                  <span className="meta-value">Released</span>
-                </div>
-
-                <div className="meta-row">
-                  <span className="meta-title">Language</span>
-                  <span className="meta-value">
-                    {languages.map((l) => l.english_name).join(" • ") ||
-                      "N/A"}
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Budget:</span>
+                  <span className="meta-value flex-1">
+                    {details?.budget ? `$${details.budget.toLocaleString()}` : "N/A"}
                   </span>
                 </div>
 
-                <div className="meta-row">
-                  <span className="meta-title">Budget</span>
-                  <span className="meta-value">
-                    {details?.budget
-                      ? `$${details.budget.toLocaleString()}`
-                      : "N/A"}
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Revenue:</span>
+                  <span className="meta-value flex-1">
+                    {details?.revenue ? `$${details.revenue.toLocaleString()}` : "N/A"}
                   </span>
                 </div>
 
-                <div className="meta-row">
-                  <span className="meta-title">Revenue</span>
-                  <span className="meta-value">
-                    {details?.revenue
-                      ? `$${details.revenue.toLocaleString()}`
-                      : "N/A"}
-                  </span>
-                </div>
-
-                <div className="meta-row">
-                  <span className="meta-title">Tagline</span>
-                  <span className="meta-value italic">
+                <div className="flex gap-2">
+                  <span className="meta-title w-[120px]">Tagline:</span>
+                  <span className="meta-value flex-1 italic">
                     {details?.tagline || "N/A"}
                   </span>
                 </div>
 
-                <div className="meta-row">
-                  <span className="meta-title">
-                    <button
-                      className={`flex flex-col items-center gap-1 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatchList
-                        ? "bg-green-400 text-white"
-                        : "bg-blue-600 text-white"
-                        }`}
-                      onClick={async () => {
-                        if (!uid) return;
-                        if (inWatchList) {
-                          await removeFromWatchList(uid, movie);
-                          setInWatchList(false);
-                        } else {
-                          await addToWatchList(uid, movie);
-                          setInWatchList(true);
-                          if (inWatched) {
-                            await removeFromWatched(uid, movie);
-                            setInWatched(false);
-                          }
-                        }
-                      }}
-                    >
-                      <span className="flex items-center gap-2 text-[13px]">
-                        {inWatchList ? "Watchlisted" : "Watchlist"}
-                        <img
-                          src="./Group 66731.png"
-                          alt="watchlist icon"
-                          className="w-5 h-5"
-                        />
-                      </span>
-                    </button>
-                  </span>
-
-                  <span className="meta-title">
-                    <button
-                      className={`flex flex-col items-center gap-2 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatched
-                        ? "bg-green-400 text-white"
-                        : "bg-blue-600 text-white"
-                        }`}
-                      onClick={async () => {
-                        if (!uid) return;
+                <div className="flex gap-2 mt-2">
+                  <button
+                    className={`flex items-center gap-2 px-3 py-3 rounded-full cursor-pointer transition-colors duration-300 ${
+                      inWatchList ? "bg-green-400 text-white" : "bg-blue-600 text-white"
+                    }`}
+                    onClick={async () => {
+                      if (!uid) return;
+                      if (inWatchList) {
+                        await removeFromWatchList(uid, movie);
+                        setInWatchList(false);
+                      } else {
+                        await addToWatchList(uid, movie);
+                        setInWatchList(true);
                         if (inWatched) {
                           await removeFromWatched(uid, movie);
                           setInWatched(false);
-                        } else {
-                          await addToWatched(uid, movie);
-                          setInWatched(true);
-                          if (inWatchList) {
-                            await removeFromWatchList(uid, movie);
-                            setInWatchList(false);
-                          }
                         }
-                      }}
-                    >
-                      <span className="flex items-center gap-2 text-[13px]">
-                        Watched
-                        <img
-                          src="./Group 66732.png"
-                          alt="watched icon"
-                          className="w-5 h-5"
-                        />
-                      </span>
-                    </button>
-                  </span>
+                      }
+                    }}
+                  >
+                    <span className="flex items-center gap-2 text-[14px]">
+                      {inWatchList ? "Watchlisted" : "Watchlist"}
+                      <img
+                        src="./Group 66731.png"
+                        alt="watchlist icon"
+                        className="w-5 h-5"
+                      />
+                    </span>
+                  </button>
+
+                  <button
+                    className={`flex items-center gap-2 px-3 py-3 rounded-full cursor-pointer transition-colors duration-300 ${
+                      inWatched ? "bg-green-400 text-white" : "bg-blue-600 text-white"
+                    }`}
+                    onClick={async () => {
+                      if (!uid) return;
+                      if (inWatched) {
+                        await removeFromWatched(uid, movie);
+                        setInWatched(false);
+                      } else {
+                        await addToWatched(uid, movie);
+                        setInWatched(true);
+                        if (inWatchList) {
+                          await removeFromWatchList(uid, movie);
+                          setInWatchList(false);
+                        }
+                      }
+                    }}
+                  >
+                    <span className="flex items-center gap-2 text-[14px]">
+                      Watched
+                      <img
+                        src="./Group 66732.png"
+                        alt="watched icon"
+                        className="w-5 h-5"
+                      />
+                    </span>
+                  </button>
                 </div>
               </div>
-
             </DialogPanel>
           </div>
         </Dialog>

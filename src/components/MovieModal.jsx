@@ -301,7 +301,6 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                 </div>
               </div>
 
-
             </DialogPanel>
           </div>
         </Dialog>

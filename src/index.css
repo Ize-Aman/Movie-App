@@ -189,7 +189,7 @@
     }
   }
 
-  .profile-modal {
+  & .profile-modal {
     @apply relative z-50;
 
     & .profile-panel {
@@ -205,6 +205,26 @@
           @apply rounded-2xl sm:w-57 sm:mr-10 not-md:mb-7 min-[470px]:max-[640px]:w-57;
         }
       }
+    }
+  }
+
+  & .not-found-page {
+    @apply min-h-screen flex bg-linear-to-tl from-[#37474F] from-10% to-[#222c31];
+
+    .not-found-wrapper {
+      @apply max-w-7xl w-full sm:pr-30 grid grid-cols-1 md:grid-cols-2 items-center gap-10;
+    }
+
+    .not-found-page h1 {
+      @apply text-left text-6xl;
+    }
+
+    .drunk {
+      @apply flex flex-col items-center;
+    }
+
+    .img-div {
+      @apply sm:mt-20;
     }
   }
 }

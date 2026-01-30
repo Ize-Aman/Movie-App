@@ -24,7 +24,7 @@ const Register = (props) => {
         setIsRegistering(true);
         setErrorMessage('');
         try {
-            await doCreateUserWithEmailAndPassword(email, password);
+            await doCreateUserWithEmailAndPassword(email, password, displayName);
             navigate('/home');
         } catch (err) {
             setErrorMessage(err.message || 'Registration failed');

@@ -34,6 +34,7 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
     const [watched, setWatched] = useState([]);
     const [watchListMovies, setWatchListMovies] = useState([]);
     const [watchedMovies, setWatchedMovies] = useState([]);
+    const [profileDisplayName, setProfileDisplayName] = useState("");
 
     const navigate = useNavigate();
 
@@ -46,9 +47,11 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                 const data = snap.data();
                 setWatchlist(data.watchlist || []);
                 setWatched(data.watched || []);
+                setProfileDisplayName(data.displayName || "");
             } else {
                 setWatchlist([]);
                 setWatched([]);
+                setProfileDisplayName("");
             }
         };
 
@@ -122,12 +125,14 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
     if (!currentUser) {
         return <Navigate to={'/'} replace={true} />;
     } else {
-        displayName = currentUser.displayName ? currentUser.displayName : currentUser.email;
-        if (currentUser.displayName) {
-            displayName = displayName.substring(0, displayName.indexOf(' '));
+        displayName = currentUser.displayName || profileDisplayName || currentUser.email;
+        if (currentUser.displayName || profileDisplayName) {
+            const spaceIndex = displayName.indexOf(' ');
+            displayName = spaceIndex > 0 ? displayName.substring(0, spaceIndex) : displayName;
         }
         else {
-            displayName = displayName.substring(0, displayName.indexOf('@'))
+            const atIndex = displayName.indexOf('@');
+            displayName = atIndex > 0 ? displayName.substring(0, atIndex) : displayName;
         }
     }
 

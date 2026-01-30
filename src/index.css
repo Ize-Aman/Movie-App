@@ -22,7 +22,7 @@
 
   --breakpoint-xs: 480px;
 
-  --background-image-hero-pattern: url("/public/hero-bg.png");
+  --background-image-hero-pattern: url("/hero-BG.png");
 }
 
 @layer base {
@@ -168,23 +168,23 @@
       }
     }
 
-    & .movie-meta {
+    .movie-meta {
       @apply min-[640px]:flex min-[640px]:flex-col min-[640px]:gap-5 min-[640px]:mt-6;
     }
 
-    & .meta-row {
+    .meta-row {
       @apply min-[640px]:grid min-[640px]:grid-cols-[160px_1fr] min-[640px]:gap-6 min-[640px]:items-start;
     }
 
-    & .meta-title {
+    .meta-title {
       @apply text-[#A8B5DB] text-sm font-medium;
     }
 
-    & .meta-value {
+    .meta-value {
       @apply text-white text-sm leading-relaxed;
     }
 
-    & .btns {
+    .btns {
       @apply grid grid-cols-[160px_1fr] gap-6 items-start not-min-[640px]:mt-4;
     }
   }

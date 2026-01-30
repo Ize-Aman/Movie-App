@@ -153,12 +153,11 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                       : "./no-movie.png"
                   }
                   alt="Movie"
-                  className="w-1/3"
                 />
                 {trailerKey && (
                   <YouTube
                     videoId={trailerKey}
-                    className="w-2/3"
+                    className="w-screen"
                     opts={{
                       width: "100%",
                       height: "100%",
@@ -238,7 +237,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                   </span>
                 </div>
 
-                <div className="meta-row">
+                <div className="meta-row btns">
                   <span className="meta-title">
                     <button
                       className={`flex flex-col items-center gap-1 px-2 py-2 rounded-full cursor-pointer transition-colors duration-300 ${inWatchList

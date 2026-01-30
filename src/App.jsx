@@ -5,10 +5,9 @@ import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
 import MovieModal from "./components/MovieModal";
 import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
-import { li, section } from "motion/react-client";
 import { useAuth } from "./contexts/authContext";
 import { Navigate } from "react-router-dom";
-import ProfileModal from "./components/ProfileModal";
+import UserBadge from "./components/UserBadge";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -20,7 +19,7 @@ const API_OPTIONS = {
   },
 };
 
-const App = (props) => {
+const App = () => {
   const [error, setError] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -29,8 +28,12 @@ const App = (props) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
+  const { currentUser } = useAuth();
+
+  if (!currentUser) {
+    return <Navigate to="/" replace />;
+  }
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
@@ -52,7 +55,7 @@ const App = (props) => {
         : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endPoint, API_OPTIONS);
 
-      if (!response.ok) throw new Error(`failed to fetch movies`);
+      if (!response.ok) throw new Error("Failed to fetch movies");
 
       const data = await response.json();
 
@@ -63,13 +66,13 @@ const App = (props) => {
       }
 
       setMovieList(data.results || []);
-      // Update search count in Firebase only if it's a search query
+
       if (query && data.results.length > 0) {
         await updateSearchCount(query, data.results[0]);
       }
     } catch (e) {
-      console.error(`error fetching movies. ${e}`);
-      setError(`error fetching movies, please try again later`);
+      console.error(`Error fetching movies: ${e}`);
+      setError("Error fetching movies, please try again later");
     } finally {
       setIsLoading(false);
     }
@@ -78,10 +81,9 @@ const App = (props) => {
   const loadTrendingMovies = async () => {
     try {
       const movies = await getTrendingMovies();
-
       setTrendingMovies(movies);
     } catch (error) {
-      console.log(`error fetching trending movies: ${error}`);
+      console.log(`Error fetching trending movies: ${error}`);
     }
   };
 
@@ -89,25 +91,24 @@ const App = (props) => {
     <main className="">
       <div className="pattern" />
       <div className="wrapper">
-        <header>
-          <div className="flex justify-end m-0 p-0">
-            <button onClick={() => setIsProfileModalOpen(true)} className="btn-gradient">
-              Open Profile
-            </button>
+        <header className="flex flex-col items-center">
+          {/* Top bar with UserBadge on the right */}
+          <div className="flex justify-end items-center w-full mb-4">
+            <UserBadge
+              movies={movieList}
+              setSelectedMovie={setSelectedMovie}
+              setIsModalOpen={setIsModalOpen}
+            />
           </div>
-          <ProfileModal
-            movies={movieList}
-            isProfileModalOpen={isProfileModalOpen}
-            setIsProfileModalOpen={setIsProfileModalOpen}
-            setSelectedMovie={setSelectedMovie}
-            setIsModalOpen={setIsModalOpen}
-          />
-          <img src="./logo.png" alt="" srcset="" className="w-22 mb-0" />
+
+          <img src="./logo.png" alt="logo" className="w-22 mb-0" />
           <img src="./hero.png" alt="hero banner" />
-          <h1>
+
+          <h1 className="text-center">
             Find <span className="text-gradient">Movies</span> You'll Enjoy
             Without the Hassle
           </h1>
+
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
 
@@ -148,13 +149,14 @@ const App = (props) => {
                     setSelectedMovie(movie);
                     setIsModalOpen(true);
                   }}
-                  isModalOpen={isModalOpen}
+                  isModalOpen={selectedMovie === movie && isModalOpen}
                 />
               ))}
             </ul>
           )}
         </section>
       </div>
+
       {selectedMovie && (
         <MovieModal
           movie={selectedMovie}

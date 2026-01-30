@@ -31,10 +31,6 @@ const App = () => {
 
   const { currentUser } = useAuth();
 
-  if (!currentUser) {
-    return <Navigate to="/" replace />;
-  }
-
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 600, [searchTerm]);
 
   useEffect(() => {
@@ -44,6 +40,10 @@ const App = () => {
   useEffect(() => {
     loadTrendingMovies();
   }, []);
+
+  if (!currentUser) {
+    return <Navigate to="/" replace />;
+  }
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true);

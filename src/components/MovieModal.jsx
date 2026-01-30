@@ -139,7 +139,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                 {details?.runtime ? `${details.runtime} min` : "N/A"}
               </p>
 
-              <div className="modal-contents flex px-2">
+              <div className="modal-contents flex">
                 <img
                   src={
                     movie.poster_path

@@ -34,21 +34,21 @@ export const userDocRef = (uid) => doc(db, "users", uid);
 // --------------------------------------------------
 // Function: addToWatchList (inside firebase.js)
 // --------------------------------------------------
-export const addToWatchList = async (uid, movie) =>{
-  try{
+export const addToWatchList = async (uid, movie) => {
+  try {
     const docRef = userDocRef(uid);
 
     //Ensure the user document exists
     const docSnap = await getDoc(docRef);
-      if (!docSnap.exists()){
-        await setDoc(docRef, {watchlist: [movie.id], watched: []});
-      } else{
-        await updateDoc(docRef, {
-          watchlist: arrayUnion(movie.id),
-        });
-      }
-  console.log("Movie added to watchlist successfully");
-  }catch (error){
+    if (!docSnap.exists()) {
+      await setDoc(docRef, { watchlist: [movie.id], watched: [] });
+    } else {
+      await updateDoc(docRef, {
+        watchlist: arrayUnion(movie.id),
+      });
+    }
+    console.log("Movie added to watchlist successfully");
+  } catch (error) {
     console.error("Error adding movie to watchlist:", error);
   }
 
@@ -58,20 +58,20 @@ export const addToWatchList = async (uid, movie) =>{
 // Function: addMovietoWatched (inside firebase.js)
 // --------------------------------------------------
 
-export const addToWatched = async (uid, movie) =>{
-  try{
+export const addToWatched = async (uid, movie) => {
+  try {
     const docRef = userDocRef(uid);
 
     //Ensure the user document exists
     const docSnap = await getDoc(docRef);
-      if (!docSnap.exists()){
-        await setDoc(docRef, {watched: [movie.id], watchlist: []});
-      } else{
-        await updateDoc(docRef, {
-          watched: arrayUnion(movie.id),
-        });
-      }
-  }catch (error){
+    if (!docSnap.exists()) {
+      await setDoc(docRef, { watched: [movie.id], watchlist: [] });
+    } else {
+      await updateDoc(docRef, {
+        watched: arrayUnion(movie.id),
+      });
+    }
+  } catch (error) {
     console.error("Error adding movie to watched list:", error);
   }
 }
@@ -79,8 +79,8 @@ export const addToWatched = async (uid, movie) =>{
 // --------------------------------------------------
 // Function: removeFromWatchList (inside firebase.js)
 // --------------------------------------------------
-  export const removeFromWatchList = async (uid, movie) =>{
-    try {
+export const removeFromWatchList = async (uid, movie) => {
+  try {
     const docRef = userDocRef(uid);
 
     await updateDoc(docRef, {
@@ -96,8 +96,8 @@ export const addToWatched = async (uid, movie) =>{
 // --------------------------------------------------
 // Function: removeFromWatched (inside firebase.js)
 // --------------------------------------------------
-export const removeFromWatched = async (uid, movie) =>{
-     try {
+export const removeFromWatched = async (uid, movie) => {
+  try {
     const docRef = userDocRef(uid);
 
     await updateDoc(docRef, {
@@ -108,7 +108,7 @@ export const removeFromWatched = async (uid, movie) =>{
   } catch (error) {
     console.error("Error removing movie from watched list:", error);
   }
-  }
+}
 
 // --------------------------------------------------
 // Function: updateSearchCount (inside firebase.js)
@@ -168,4 +168,4 @@ export const getTrendingMovies = async () => {
 
 const auth = getAuth(app);
 
-export { app, auth};
+export { app, auth };

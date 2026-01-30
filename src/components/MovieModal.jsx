@@ -257,9 +257,9 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                   }}
                 >
                   <span className="flex items-center gap-2">
-                    {inWatchList ? "In Watchlist" : "Add to Watchlist"}
+                    {inWatchList ? "Watchlisted" : "Watchlist"}
                     <img
-                      src="/Group 66732.png"
+                      src="./Group 66731.png"
                       alt="watchlist icon"
                       className="w-5 h-5"
                     />
@@ -287,9 +287,9 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
                   }}
                 >
                   <span className="flex items-center gap-2">
-                    {inWatched ? "Watched" : "Mark as Watched"}
+                    Watched
                     <img
-                      src="/Group 66731.png"
+                      src="./Group 66732.png"
                       alt="watched icon"
                       className="w-5 h-5"
                     />

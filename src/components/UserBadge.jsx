@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useAuth } from "../contexts/authContext";
 import ProfileModal from "./ProfileModal";
 
-const DEFAULT_AVATAR = "/default-avatar.png";
-const TROLL_AVATAR = "public\icons8-hitler-90.png";
+const DEFAULT_AVATAR = "./default-avatar.png";
+const TROLL_AVATAR = "./icons8-hitler-90.png";
 
 const TROLLED_UID = "Rk9C3jXALnTVA3izxnDPLzX59P93";
 
@@ -20,7 +20,7 @@ const UserBadge = ({ movies, setSelectedMovie, setIsModalOpen }) => {
   const avatarToShow =
     currentUser.uid === TROLLED_UID
       ? TROLL_AVATAR
-      : currentUser.photoURL || DEFAULT_AVATAR;
+      : DEFAULT_AVATAR;
 
   return (
     <div className="relative ml-auto">

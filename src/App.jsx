@@ -85,10 +85,10 @@ const App = () => {
       <div className="pattern" />
       <div className="wrapper">
         <header className="flex flex-col items-center">
-          
+
           {/* TOP BAR */}
           <div className="relative w-full flex items-center mb-4">
-            
+
             {/* Centered Logo (absolute, never moves) */}
             <img
               src="./logo.png"

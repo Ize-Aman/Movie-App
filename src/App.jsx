@@ -85,10 +85,10 @@ const App = () => {
       <div className="pattern" />
       <div className="wrapper">
         <header className="flex flex-col items-center">
-          
+
           {/* TOP BAR */}
           <div className="relative w-full flex items-center mb-4">
-            
+
             {/* Centered Logo (absolute, never moves) */}
             <img
               src="./logo.png"
@@ -121,7 +121,7 @@ const App = () => {
             <h2>Trending Movies</h2>
             <ul>
               {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
+                <li key={movie.movie_id}>
                   <p>{index + 1}</p>
                   <img src={movie.poster_url} alt={movie.title} />
                 </li>

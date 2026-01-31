@@ -184,7 +184,7 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                                 <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5 ">
                                     <li className="max-w-56 min-w-56 flex gap-5">
                                         {isListsLoading && watchListMovies.length === 0 && (
-                                            <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" />
+                                            <ThreeDot variant="pulsate" color="#4B0082" size="small" text="" textColor="" />
                                         )}
 
                                         {!isListsLoading && watchListMovies.length === 0 && (
@@ -214,7 +214,7 @@ const ProfileModal = ({ movies, isProfileModalOpen, setIsProfileModalOpen, setSe
                                 <ul className="flex gap-5 overflow-x-auto overflow-y-hidden hide-scrollbar mt-5">
                                     <li className="max-w-56 min-w-56 flex gap-5">
                                         {isListsLoading && watchedMovies.length === 0 && (
-                                            <ThreeDot variant="pulsate" color="#9abee1dd" size="small" text="" textColor="" />
+                                            <ThreeDot variant="pulsate" color="#4B0082" size="small" text="" textColor="" />
                                         )}
 
                                         {!isListsLoading && watchedMovies.length === 0 && (

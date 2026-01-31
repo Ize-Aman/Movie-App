@@ -68,6 +68,7 @@ const MovieModal = ({ movie, isModalOpen, setIsModalOpen }) => {
 
   useEffect(() => {
     if (!movie || !uid) return;
+    
     const checkLists = async () => {
       const docSnap = await getDoc(userDocRef(uid));
       if (docSnap.exists()) {

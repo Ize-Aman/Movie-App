@@ -32,7 +32,7 @@ export const db = getFirestore(app);
 export const userDocRef = (uid) => doc(db, "users", uid);
 
 // --------------------------------------------------
-// Function: addToWatchList (inside firebase.js)
+// Function: addToWatchList
 // --------------------------------------------------
 export const addToWatchList = async (uid, movie) => {
   try {
@@ -47,15 +47,13 @@ export const addToWatchList = async (uid, movie) => {
         watchlist: arrayUnion(movie.id),
       });
     }
-    console.log("Movie added to watchlist successfully");
   } catch (error) {
     console.error("Error adding movie to watchlist:", error);
   }
-
 };
 
 // --------------------------------------------------
-// Function: addMovietoWatched (inside firebase.js)
+// Function: addMovietoWatched
 // --------------------------------------------------
 
 export const addToWatched = async (uid, movie) => {
@@ -74,7 +72,7 @@ export const addToWatched = async (uid, movie) => {
   } catch (error) {
     console.error("Error adding movie to watched list:", error);
   }
-}
+};
 
 // --------------------------------------------------
 // Function: removeFromWatchList (inside firebase.js)
@@ -86,12 +84,10 @@ export const removeFromWatchList = async (uid, movie) => {
     await updateDoc(docRef, {
       watchlist: arrayRemove(movie.id),
     });
-
-    console.log("Movie removed from watchlist");
   } catch (error) {
     console.error("Error removing movie from watchlist:", error);
   }
-}
+};
 
 // --------------------------------------------------
 // Function: removeFromWatched (inside firebase.js)
@@ -103,15 +99,13 @@ export const removeFromWatched = async (uid, movie) => {
     await updateDoc(docRef, {
       watched: arrayRemove(movie.id),
     });
-
-    console.log("Movie removed from watched list");
   } catch (error) {
     console.error("Error removing movie from watched list:", error);
   }
-}
+};
 
 // --------------------------------------------------
-// Function: updateSearchCount (inside firebase.js)
+// Function: updateSearchCount
 // --------------------------------------------------
 export const updateSearchCount = async (searchTerm, movie) => {
   try {

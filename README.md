@@ -98,6 +98,7 @@ VITE_FIREBASE_PROJECT_ID=your_project_id
 VITE_FIREBASE_STORAGE_BUCKET=your_bucket
 VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
+```
 
 ---
 
@@ -105,26 +106,22 @@ VITE_FIREBASE_APP_ID=your_app_id
 
 ### 1. Clone the repository
 
-git clone https://github.com/your-username/movie-tracker.git
-cd movie-tracker
+`git clone https://github.com/your-username/movie-tracker.git
+cd movie-tracker`
 
 ### 2. Install dependencies
 
-npm install
+`npm install`
 
 ### 3. Run the project
 
-npm run dev
+`npm run dev`
 
 ---
 
 ## 🌍 Deployment
 
-The project is deployed using Firebase Hosting.
-
-To deploy:
-
-firebase deploy
+The project is deployed using vercel
 
 ---
 
@@ -150,23 +147,9 @@ firebase deploy
 
 ## 👨‍💻 Author
 
-Nati Mulugeta
+Ammanuel Tesfahun, Nati Mulugeta and Mahammed Sadik
 Built as a full-stack learning project using modern web technologies.
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
-
----
-
-If you want, I can:
-- Customize this for **university submission**
-- Make a **shorter recruiter-friendly README**
-- Add screenshots section
-- Rewrite it like a **startup MVP**
-
-Just tell me the vibe 😎
-```
+Built with 🤎 and coffee!

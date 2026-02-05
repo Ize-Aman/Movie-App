@@ -11,9 +11,11 @@ const PillNav = ({
   ease = 'power3.easeOut',
   baseColor = '#fff',
   pillColor = '#060010',
+  hoveredPillColor = "linear-gradient(135deg, #0f0c29, #302b63, #24243e)",
   pillGap = '10px',
   hoveredPillTextColor = '#060010',
   pillTextColor,
+  onLogoClick,
   onMobileMenuClick,
   initialLoadAnimation = true
 }) => {
@@ -154,6 +156,12 @@ const PillNav = ({
     });
   };
 
+  const handleLogoClick = e => {
+    if (!onLogoClick) return;
+    e.preventDefault();
+    onLogoClick(e);
+  };
+
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen;
     setIsMobileMenuOpen(newState);
@@ -218,6 +226,7 @@ const PillNav = ({
   const cssVars = {
     ['--base']: baseColor,
     ['--pill-bg']: pillColor,
+    ['--pill-hover']: hoveredPillColor,
     ['--hover-text']: hoveredPillTextColor,
     ['--pill-text']: resolvedPillTextColor,
     ['--nav-h']: '42px',
@@ -238,11 +247,12 @@ const PillNav = ({
             to={items[0].href}
             aria-label="Home"
             onMouseEnter={handleLogoEnter}
+            onClick={handleLogoClick}
             role="menuitem"
             ref={el => {
               logoRef.current = el;
             }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden"
+            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden cursor-pointer"
             style={{
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
@@ -256,6 +266,7 @@ const PillNav = ({
             href={items?.[0]?.href || '#'}
             aria-label="Home"
             onMouseEnter={handleLogoEnter}
+            onClick={handleLogoClick}
             ref={el => {
               logoRef.current = el;
             }}
@@ -298,7 +309,7 @@ const PillNav = ({
                   <span
                     className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none"
                     style={{
-                      background: 'var(--base, #000)',
+                      background: 'var(--pill-hover, var(--base, #000))',
                       willChange: 'transform'
                     }}
                     aria-hidden="true"
@@ -324,13 +335,6 @@ const PillNav = ({
                       {item.label}
                     </span>
                   </span>
-                  {isActive && (
-                    <span
-                      className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-3 h-3 rounded-full z-[4]"
-                      style={{ background: 'var(--base, #000)' }}
-                      aria-hidden="true"
-                    />
-                  )}
                 </>
               );
 
@@ -338,7 +342,7 @@ const PillNav = ({
                 'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
 
               return (
-                <li key={item.href} role="none" className="flex h-full">
+                <li key={item.href} role="none" className="relative flex h-full">
                   {isRouterLink(item.href) ? (
                     <Link
                       role="menuitem"
@@ -346,8 +350,14 @@ const PillNav = ({
                       className={basePillClasses}
                       style={pillStyle}
                       aria-label={item.ariaLabel || item.label}
-                      onMouseEnter={() => handleEnter(i)}
-                      onMouseLeave={() => handleLeave(i)}
+                      onMouseEnter={e => {
+                        handleEnter(i);
+                        e.currentTarget.style.background = 'var(--pill-hover, var(--base))';
+                      }}
+                      onMouseLeave={e => {
+                        handleLeave(i);
+                        e.currentTarget.style.background = 'var(--pill-bg, #fff)';
+                      }}
                     >
                       {PillContent}
                     </Link>
@@ -358,11 +368,24 @@ const PillNav = ({
                       className={basePillClasses}
                       style={pillStyle}
                       aria-label={item.ariaLabel || item.label}
-                      onMouseEnter={() => handleEnter(i)}
-                      onMouseLeave={() => handleLeave(i)}
+                      onMouseEnter={e => {
+                        handleEnter(i);
+                        e.currentTarget.style.background = 'var(--pill-hover, var(--base))';
+                      }}
+                      onMouseLeave={e => {
+                        handleLeave(i);
+                        e.currentTarget.style.background = 'var(--pill-bg, #fff)';
+                      }}
                     >
                       {PillContent}
                     </a>
+                  )}
+                  {isActive && (
+                    <span
+                      className="absolute left-1/2 -bottom-[2px] -translate-x-1/2 w-2 h-2 rounded-full z-[4]"
+                      style={{ background: 'var(--pill-hover, var(--base, #000))' }}
+                      aria-hidden="true"
+                    />
                   )}
                 </li>
               );
@@ -408,7 +431,7 @@ const PillNav = ({
               color: 'var(--pill-text, #fff)'
             };
             const hoverIn = e => {
-              e.currentTarget.style.background = 'var(--base)';
+              e.currentTarget.style.background = 'var(--pill-hover, var(--base))';
               e.currentTarget.style.color = 'var(--hover-text, #fff)';
             };
             const hoverOut = e => {

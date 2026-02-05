@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "./components/Search";
 import { ThreeDot } from "react-loading-indicators";
 import MovieCard from "./components/MovieCard";
@@ -8,6 +8,8 @@ import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
 import { useAuth } from "./contexts/authContext";
 import { Navigate } from "react-router-dom";
 import UserBadge from "./components/UserBadge";
+import PillNav from "./components/PillNav";
+import logo from "/logo.png";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -87,14 +89,33 @@ const App = () => {
         <header className="flex flex-col items-center">
 
           {/* TOP BAR */}
-          <div className="relative w-full flex items-center mb-4">
+          <div className="relative w-full flex items-center justify-center mb-4">
 
             {/* Centered Logo (absolute, never moves) */}
-            <img
-              src="./logo.png"
-              alt="logo"
-              className="absolute left-1/2 -translate-x-1/2 w-22"
-            />
+                  <PillNav
+                    logo={logo}
+                    logoAlt="Company Logo"
+                    items={[
+                      { label: 'Home', href: '/' },
+                      { label: 'About', href: '/about' },
+                      { label: 'Services', href: '/services' },
+                      { label: 'Contact', href: '/contact' }
+                    ]}
+                    activeHref="/"
+                    className="custom-nav"
+                    ease="power2.easeOut"
+                    baseColor="linear-gradient(135deg,
+                                rgba(15,12,41,0.75),
+                                rgba(48,43,99,0.75),
+                                rgba(36,36,62,0.75)
+                              )"
+
+                    pillColor="#ffffff"
+                    hoveredPillTextColor="#ffffff"
+                    pillTextColor="#000000"
+                    theme="color"
+                    initialLoadAnimation
+                  />
 
             {/* Right-side Profile Badge */}
             <div className="ml-auto">

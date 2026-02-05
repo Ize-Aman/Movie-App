@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "./components/Search";
 import { ThreeDot } from "react-loading-indicators";
 import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
 import MovieModal from "./components/MovieModal";
+import ProfileModal from "./components/ProfileModal";
 import { updateSearchCount, getTrendingMovies } from "./firebase/firebase";
 import { useAuth } from "./contexts/authContext";
 import { Navigate } from "react-router-dom";
-import UserBadge from "./components/UserBadge";
+import PillNav from "./components/PillNav";
+import logo from "/icons8-hitler-90.png";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -28,6 +30,7 @@ const App = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const { currentUser } = useAuth();
 
@@ -83,27 +86,35 @@ const App = () => {
   return (
     <main>
       <div className="pattern" />
-      <div className="wrapper">
+      <div className="wrapper pt-5">
         <header className="flex flex-col items-center">
 
           {/* TOP BAR */}
-          <div className="relative w-full flex items-center mb-4">
+          <div className="relative w-full flex items-center justify-center mb-10">
 
             {/* Centered Logo (absolute, never moves) */}
-            <img
-              src="./logo.png"
-              alt="logo"
-              className="absolute left-1/2 -translate-x-1/2 w-22"
-            />
-
-            {/* Right-side Profile Badge */}
-            <div className="ml-auto">
-              <UserBadge
-                movies={movieList}
-                setSelectedMovie={setSelectedMovie}
-                setIsModalOpen={setIsModalOpen}
-              />
-            </div>
+                  <PillNav
+                    logo={logo}
+                    logoAlt="Company Logo"
+                    onLogoClick={() => setIsProfileModalOpen(true)}
+                    items={[
+                      { label: 'Home', href: '/' },
+                      { label: 'Movies', href: '' },
+                      { label: 'Tv-Shows', href: '' },
+                      { label: 'Both', href: '' },
+                      { label: 'Contact', href: '' },
+                      { label: 'About', href: '' },
+                    ]}
+                    activeHref="/"
+                    className="custom-nav"
+                    ease="power2.easeOut"
+                    baseColor="transparent"
+                    pillColor="#ffffff"
+                    hoveredPillTextColor="#ffffff"
+                    pillTextColor="#000000"
+                    theme="color"
+                    initialLoadAnimation
+                  />
           </div>
 
           <img src="./hero.png" alt="hero banner" />
@@ -159,6 +170,16 @@ const App = () => {
         <MovieModal
           movie={selectedMovie}
           isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
+
+      {isProfileModalOpen && (
+        <ProfileModal
+          movies={movieList}
+          isProfileModalOpen={isProfileModalOpen}
+          setIsProfileModalOpen={setIsProfileModalOpen}
+          setSelectedMovie={setSelectedMovie}
           setIsModalOpen={setIsModalOpen}
         />
       )}
